@@ -11,8 +11,15 @@ provider "aws" {
   region = "eu-west-1"
   default_tags {
     tags = {
-      Environment = var.environment
-      Resource    = "Durable"
+      Environment   = var.environment
+      Type_Resource = var.type_resource
     }
   }
+}
+
+module "iam" {
+  source = "../../modules/iam"
+
+  environment            = var.environment
+  alb_ingress_controller = var.alb_ingress_controller
 }

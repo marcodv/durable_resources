@@ -29,7 +29,6 @@ infrastructure:
   script:
     - echo "Running durable resource pipeline"
     - cd environments/test/
-    - echo $TF_USER_DURABLE_TEST_ENV
     - pwd
     - terraform init
     - terraform plan -var-file=test.tfvars
