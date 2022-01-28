@@ -22,4 +22,7 @@ module "iam" {
 
   environment            = var.environment
   alb_ingress_controller = var.alb_ingress_controller
+  ec2_full_access        = var.ec2_full_access
+  iam_limited_access     = var.iam_limited_access
+  eks_all_access         = var.eks_all_access
 }
