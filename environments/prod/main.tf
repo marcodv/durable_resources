@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "terraform-state-durable-test-env"
-    key            = "terraform-state-durable-test-env/terraform.tfstate"
+    bucket         = "terraform-state-durable-prod-env"
+    key            = "terraform-state-durable-prod-env/terraform.tfstate"
     region         = "eu-west-1"
-    dynamodb_table = "tfStateLockingDurableTestEnv"
+    dynamodb_table = "tfStateLockingDurableProdEnv"
   }
 }
 

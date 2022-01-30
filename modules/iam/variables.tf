@@ -2,6 +2,11 @@ variable "environment" {
   type = string
 }
 
+variable "alb_ingress_controller_role_env" {
+  description = "List of ALB ingress controller roles for environment"
+  type = list(string)
+}
+
 variable "alb_ingress_controller" {
   type = object({
     name        = string
