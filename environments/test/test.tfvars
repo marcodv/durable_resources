@@ -3,25 +3,25 @@ environment = "test"
 type_resource = "durable"
 
 alb_ingress_controller = {
-  name        = "AWSLoadBalancerControllerIAMPolicyTestEnv"
+  name        = "AWSLoadBalancerControllerIAMPolicytestEnv"
   path        = "/"
   description = "ALB controller Policy in Test Env"
 }
 
 ec2_full_access = {
-  name        = "AWSFullAccessEC2ForEKSTestEnv"
+  name        = "AWSFullAccessEC2ForEKStestEnv"
   path        = "/"
   description = "EC2 Full Access policy for EKS in Test Env"
 }
 
 iam_limited_access = {
-  name        = "AWSLimitedAccessIAMTestEnv"
+  name        = "AWSLimitedAccessIAMtestEnv"
   path        = "/"
   description = "IAM limited access policy for EKS in Test Env"
 }
 
 eks_all_access = {
-  name        = "AWSAllAccessEKSTestEnv"
+  name        = "AWSAllAccessEKStestEnv"
   path        = "/"
   description = "EKS full access policy in Test env"
 }

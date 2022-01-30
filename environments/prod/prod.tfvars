@@ -3,25 +3,25 @@ environment = "prod"
 type_resource = "durable"
 
 alb_ingress_controller = {
-  name        = "AWSLoadBalancerControllerIAMPolicyProdEnv"
+  name        = "AWSLoadBalancerControllerIAMPolicyprodEnv"
   path        = "/"
   description = "ALB controller Policy in Prod Env"
 }
 
 ec2_full_access = {
-  name        = "AWSFullAccessEC2ForEKSProdEnv"
+  name        = "AWSFullAccessEC2ForEKSprodEnv"
   path        = "/"
   description = "EC2 Full Access policy for EKS in Prod Env"
 }
 
 iam_limited_access = {
-  name        = "AWSLimitedAccessIAMProdEnv"
+  name        = "AWSLimitedAccessIAMprodEnv"
   path        = "/"
   description = "IAM limited access policy for EKS in Prod Env"
 }
 
 eks_all_access = {
-  name        = "AWSAllAccessEKSProdEnv"
+  name        = "AWSAllAccessEKSprodEnv"
   path        = "/"
   description = "EKS full access policy in Prod env"
 }
