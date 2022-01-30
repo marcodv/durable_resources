@@ -29,3 +29,27 @@ resource "aws_iam_policy" "eks_all_access_policy" {
   description = var.eks_all_access.description
   policy      = file("${path.module}/EksAllAccess.json")
 }
+
+// Create IAM Role for ALB ingress controller for test and prod cluster
+/*resource "aws_iam_role" "alb_ingress_role" {
+  depends_on = [aws_iam_policy.alb_controller_policy]
+  count = length(var.alb_ingress_controller_role_env)
+  name  = element(var.alb_ingress_controller_role_env, count.index)
+  description = "Role used by ALB ingress controller"
+  path = "/"
+  assume_role_policy = file("${path.module}/EksAlbRolePolicy.json")
+}
+
+// Attach ALB Policy for ALB role 
+resource "aws_iam_role_policy_attachment" "alb_role_attachment" {
+  depends_on = [aws_iam_role.alb_ingress_role]
+  count = length(var.alb_ingress_controller_role_env)
+  policy_arn = "arn:aws:iam::848481299679:policy/AWSLoadBalancerControllerIAMPolicy"
+  role = "aws_iam_role.alb_ingress_role.${element(var.alb_ingress_controller_role_env, count.index)}"
+} */
+
+// Create EKS cluster role for test and prod env
+resource "aws_iam_role" "iam_role_eks_cluster" {
+  name               = "eks-role-${var.environment}-env"
+  assume_role_policy = file("${path.module}/EksClusterRolePolicy.json")
+}
