@@ -26,4 +26,11 @@ eks_all_access = {
   description = "EKS full access policy in Prod env"
 }
 
+// This need to contains only name for test env. For prod env need to be used the prod account
 alb_ingress_controller_role_env = ["alb-controller-prod-env"]
+
+// Policies created for EKS resources
+iam_customer_eks_policies = ["AWSLoadBalancerControllerIAMPolicy", "AWSFullAccessEC2ForEKS", "AWSLimitedAccessIAM", "AWSAllAccessEKS"]
+
+// AWS policies for EKS resource
+iam_aws_eks_policies = ["AmazonEKSVPCResourceController", "AmazonEKSWorkerNodePolicy", "AmazonEKSClusterPolicy", "AmazonEKS_CNI_Policy", "AmazonEC2ContainerRegistryReadOnly"]
