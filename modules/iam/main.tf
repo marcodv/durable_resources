@@ -30,26 +30,26 @@ resource "aws_iam_policy" "eks_all_access_policy" {
   policy      = file("${path.module}/EksAllAccess.json")
 }
 
-// Create IAM Role for ALB ingress controller for test and prod cluster
-/*resource "aws_iam_role" "alb_ingress_role" {
-  depends_on = [aws_iam_policy.alb_controller_policy]
-  count = length(var.alb_ingress_controller_role_env)
-  name  = element(var.alb_ingress_controller_role_env, count.index)
-  description = "Role used by ALB ingress controller"
-  path = "/"
-  assume_role_policy = file("${path.module}/EksAlbRolePolicy.json")
-}
-
-// Attach ALB Policy for ALB role 
-resource "aws_iam_role_policy_attachment" "alb_role_attachment" {
-  depends_on = [aws_iam_role.alb_ingress_role]
-  count = length(var.alb_ingress_controller_role_env)
-  policy_arn = "arn:aws:iam::848481299679:policy/AWSLoadBalancerControllerIAMPolicy"
-  role = "aws_iam_role.alb_ingress_role.${element(var.alb_ingress_controller_role_env, count.index)}"
-} */
-
 // Create EKS cluster role for test and prod env
 resource "aws_iam_role" "iam_role_eks_cluster" {
   name               = "eks-role-${var.environment}-env"
   assume_role_policy = file("${path.module}/EksClusterRolePolicy.json")
+}
+
+# Optionally, enable Security Groups for Pods
+# Reference: https://docs.aws.amazon.com/eks/latest/userguide/security-groups-for-pods.html
+// This block attach CUSTOMER created policies to the cluster role
+resource "aws_iam_role_policy_attachment" "aws_customer_policies_attachment_eks" {
+  count = length(var.iam_customer_eks_policies)
+  //role       = aws_iam_role.iam_role_eks_cluster.name
+  role       = "eks-role-${var.environment}-env"
+  policy_arn = "arn:aws:iam::848481299679:policy/${element(var.iam_customer_eks_policies, count.index)}${var.environment}Env"
+}
+
+// This block attach AWS policies to the cluster role
+resource "aws_iam_role_policy_attachment" "aws_managed_policies_attachment_eks" {
+  count = length(var.iam_aws_eks_policies)
+  //role       = aws_iam_role.iam_role_eks_cluster.name
+  role       = "eks-role-${var.environment}-env"
+  policy_arn = "arn:aws:iam::aws:policy/${element(var.iam_aws_eks_policies, count.index)}"
 }
