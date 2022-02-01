@@ -34,3 +34,8 @@ variable "aim_aws_worker_node_policies" {
   description = "List of policies to attach to the worker node role"
   type        = list(string)
 }
+
+variable "customer_policy_worker_node" {
+  description = "AWS IAM customer policies for worker node role"
+  type        = list(string)
+}
