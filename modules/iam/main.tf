@@ -40,16 +40,27 @@ resource "aws_iam_role" "iam_role_eks_cluster" {
 # Reference: https://docs.aws.amazon.com/eks/latest/userguide/security-groups-for-pods.html
 // This block attach CUSTOMER created policies to the cluster role
 resource "aws_iam_role_policy_attachment" "aws_customer_policies_attachment_eks" {
-  count = length(var.iam_customer_eks_policies)
-  //role       = aws_iam_role.iam_role_eks_cluster.name
+  count      = length(var.iam_customer_eks_policies)
   role       = "eks-role-${var.environment}-env"
   policy_arn = "arn:aws:iam::848481299679:policy/${element(var.iam_customer_eks_policies, count.index)}${var.environment}Env"
 }
 
 // This block attach AWS policies to the cluster role
 resource "aws_iam_role_policy_attachment" "aws_managed_policies_attachment_eks" {
-  count = length(var.iam_aws_eks_policies)
-  //role       = aws_iam_role.iam_role_eks_cluster.name
+  count      = length(var.iam_aws_eks_policies)
   role       = "eks-role-${var.environment}-env"
   policy_arn = "arn:aws:iam::aws:policy/${element(var.iam_aws_eks_policies, count.index)}"
+}
+
+// Worker node role 
+resource "aws_iam_role" "iam_role_worker_node" {
+  name               = "worker-node-role-${var.environment}-env"
+  assume_role_policy = file("${path.module}/worker-node-role.json")
+}
+
+// Attach policy to worker node role
+resource "aws_iam_role_policy_attachment" "aim_managed_policy_attachment_worker_node" {
+  count      = length(var.aim_aws_worker_node_policies)
+  role       = "worker-node-role-${var.environment}-env"
+  policy_arn = "arn:aws:iam::aws:policy/${element(var.aim_aws_worker_node_policies, count.index)}"
 }

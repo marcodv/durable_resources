@@ -24,3 +24,8 @@ variable "iam_aws_eks_policies" {
   description = "AWS IAM managed policies for EKS"
   type        = list(string)
 }
+
+variable "worker_node_role" {
+  description = "Name of the worker node role"
+  type = string
+}

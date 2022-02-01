@@ -4,7 +4,7 @@ variable "environment" {
 
 variable "alb_ingress_controller_role_env" {
   description = "List of ALB ingress controller roles for environment"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "alb_ingress_controller" {
@@ -46,5 +46,10 @@ variable "iam_customer_eks_policies" {
 
 variable "iam_aws_eks_policies" {
   description = "AWS IAM managed policies for EKS"
+  type        = list(string)
+}
+
+variable "aim_aws_worker_node_policies" {
+  description = "AWS IAM managed policies for worker node"
   type        = list(string)
 }
