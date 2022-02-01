@@ -29,3 +29,8 @@ variable "worker_node_role" {
   description = "Name of the worker node role"
   type = string
 }
+
+variable "aim_aws_worker_node_policies" {
+  description = "List of policies to attach to the worker node role"
+  type        = list(string)
+}
