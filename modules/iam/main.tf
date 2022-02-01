@@ -56,7 +56,7 @@ resource "aws_iam_role_policy_attachment" "aws_managed_policies_attachment_eks" 
 
 // Worker node role 
 resource "aws_iam_role" "iam_role_worker_node" {
-  name               = "worker-node-role-${var.environment}-env"
+  name               = var.worker_node_role
   assume_role_policy = file("${path.module}/worker-node-role.json")
 }
 
@@ -64,6 +64,6 @@ resource "aws_iam_role" "iam_role_worker_node" {
 resource "aws_iam_role_policy_attachment" "aim_managed_policy_attachment_worker_node" {
   depends_on = [aws_iam_role.iam_role_worker_node]
   count      = length(var.aim_aws_worker_node_policies)
-  role       = "worker-node-role-${var.environment}-env"
+  role       = aws_iam_role.iam_role_worker_node.name
   policy_arn = "arn:aws:iam::aws:policy/${element(var.aim_aws_worker_node_policies, count.index)}"
 }

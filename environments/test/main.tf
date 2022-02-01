@@ -29,4 +29,5 @@ module "iam" {
   iam_customer_eks_policies       = var.iam_customer_eks_policies
   iam_aws_eks_policies            = var.iam_aws_eks_policies
   aim_aws_worker_node_policies    = var.aim_aws_worker_node_policies
+  worker_node_role                = var.worker_node_role
 }
