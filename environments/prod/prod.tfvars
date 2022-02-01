@@ -42,4 +42,4 @@ worker_node_role = "WorkerNodeRoleprodEnv"
 aim_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy"]
 
 // Add customer policy to worker node
-customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicytestEnv"]
+customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicyprodEnv"]
