@@ -39,4 +39,4 @@ iam_aws_eks_policies = ["AmazonEKSVPCResourceController", "AmazonEKSWorkerNodePo
 worker_node_role = "WorkerNodeRoletestEnv"
 
 // Policies for the worker node role
-aim_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy"]
+aim_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy", "AWSLoadBalancerControllerIAMPolicytestEnv"]
