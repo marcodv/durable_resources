@@ -75,3 +75,11 @@ resource "aws_iam_role_policy_attachment" "aim_customer_policy_attachment_worker
   role       = aws_iam_role.iam_role_worker_node.name
   policy_arn = "arn:aws:iam::848481299679:policy/${element(var.customer_policy_worker_node, count.index)}"
 }
+
+// Create policy for misc permissions for automation users  
+resource "aws_iam_policy" "misc_policy_permission" {
+  name        = "PolicyPermissionMisc"
+  path        = "/"
+  description = "Policy with mixed permission for automation users"
+  policy      = file("${path.module}/mixed_permission_account.json")
+}
