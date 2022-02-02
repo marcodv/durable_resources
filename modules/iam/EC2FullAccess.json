@@ -36,7 +36,8 @@
                         "eks-nodegroup.amazonaws.com",
                         "spot.amazonaws.com",
                         "spotfleet.amazonaws.com",
-                        "transitgateway.amazonaws.com"
+                        "transitgateway.amazonaws.com",
+                        "ssm:UpdateInstanceInformation"
                     ]
                 }
             }
