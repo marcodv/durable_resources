@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "terraform-state-devs-env"
-    key            = "terraform-state-devs-env/terraform.tfstate"
+    bucket         = "terraform-state-durable-dev-env"
+    key            = "terraform-state-durable-dev-env/terraform.tfstate"
     region         = "eu-west-1"
-    dynamodb_table = "tfStateLockingDevsEnv"
+    dynamodb_table = "tfStateLockingDurableDevEnv"
   }
 }
 
@@ -15,4 +15,20 @@ provider "aws" {
       Type_Resource = var.type_resource
     }
   }
+}
+
+module "iam" {
+  source = "../../modules/iam"
+
+  environment                     = var.environment
+  alb_ingress_controller          = var.alb_ingress_controller
+  ec2_full_access                 = var.ec2_full_access
+  iam_limited_access              = var.iam_limited_access
+  eks_all_access                  = var.eks_all_access
+  alb_ingress_controller_role_env = var.alb_ingress_controller_role_env
+  iam_customer_eks_policies       = var.iam_customer_eks_policies
+  iam_aws_eks_policies            = var.iam_aws_eks_policies
+  aim_aws_worker_node_policies    = var.aim_aws_worker_node_policies
+  worker_node_role                = var.worker_node_role
+  customer_policy_worker_node     = var.customer_policy_worker_node
 }
