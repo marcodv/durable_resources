@@ -10,7 +10,7 @@ include:
 stages:
   - run-security-scan 
   - infrastructure
-  - test_build_documentation
+  - test_documentation
   - deploy_documentation
 
 # Runs tfsec module scan from noah-pipelines-templates project
