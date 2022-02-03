@@ -10,6 +10,8 @@ include:
 stages:
   - run-security-scan 
   - infrastructure
+  - test_build_documentation
+  - deploy_documentation
 
 # Runs tfsec module scan from noah-pipelines-templates project
 run-security-scan:
@@ -33,3 +35,22 @@ infrastructure:
     - terraform init
     - terraform plan -var-file=test.tfvars
     - terraform apply -var-file=test.tfvars -auto-approve 
+
+# Test the build for the Terraform documentation
+test:
+  stage: test_build_documentation
+  extends: .test_mkdocs_build
+  script:
+    - echo "Generated Terraform documentations artifact"
+  rules:
+    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+
+
+# Deploy the Terraform Documentation to GitLab pages
+pages:
+  stage: deploy_documentation
+  extends: .deploy_pages
+  script:
+    - echo "Publishing Terraform documentations"
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
