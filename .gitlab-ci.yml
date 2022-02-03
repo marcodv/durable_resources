@@ -38,7 +38,7 @@ infrastructure:
 
 # Test the build for the Terraform documentation
 test:
-  stage: test_build_documentation
+  stage: test_documentation
   extends: .test_mkdocs_build
   script:
     - echo "Generated Terraform documentations artifact"
