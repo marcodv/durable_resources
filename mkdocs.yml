@@ -1,0 +1,16 @@
+site_name: AWS Durable Resources Terraform Documentation
+site_url: "https://noah-energy.gitlab.io/durable-resources-aws"
+site_dir: public
+theme:
+  name: material
+  features:
+      - navigation.expand
+nav:
+    - index.md
+    - 'Environments':
+        - dev: 'dev.md'
+        - prod: 'prod.md'
+        - test: 'test.md'
+    - 'modules':
+        - iam: 'iam.md'
+        - s3: 'S3-buckets.md' 
