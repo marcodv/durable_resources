@@ -27,14 +27,14 @@ infrastructure:
   stage: infrastructure
   extends: .terraform
   variables:
-    AWS_PROFILE_ENV: $TF_USER_DURABLE_TEST_ENV
+    AWS_PROFILE_ENV: $TF_USER_DURABLE_DEV_ENV
   script:
     - echo "Running durable resource pipeline"
-    - cd environments/test/
+    - cd environments/dev/
     - pwd
     - terraform init
-    - terraform plan -var-file=test.tfvars
-    - terraform apply -var-file=test.tfvars -auto-approve 
+    - terraform plan -var-file=dev.tfvars
+    - terraform apply -var-file=dev.tfvars -auto-approve 
 
 # Test the build for the Terraform documentation
 test:
