@@ -25,9 +25,3 @@ resource "aws_iam_user_policy_attachment" "attach_managed_policies_to_user" {
   policy_arn = "arn:aws:iam::aws:policy/${element(var.aws_managed_policies_list, count.index)}"
 }
 
-resource "aws_iam_group_membership" "attach_user_to_cluster_group" {
-  depends_on = [aws_iam_user.iam_user]
-  name       = element(var.attach_user_to_group, 0)
-  users      = var.cluster_users_mgmt
-  group      = element(var.attach_user_to_group, 0)
-}

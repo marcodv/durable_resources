@@ -21,8 +21,9 @@ module "iamGroupUsers" {
   source = "../../modules/createIamUserGroup"
 
   eks_cluster_management_list_policies = var.eks_cluster_management_list_policies
+  attach_user_to_group                 = var.attach_user_to_group
+  cluster_users_mgmt                   = var.cluster_users_mgmt
 }
-
 
 module "createUsers" {
   source = "../../modules/createIamUsers"
@@ -31,9 +32,6 @@ module "createUsers" {
   custom_policies_list      = var.custom_policies_list
   iam_user_name             = var.iam_user_name
   aws_managed_policies_list = var.aws_managed_policies_list
-  attach_user_to_group      = var.attach_user_to_group
-  cluster_users_mgmt = var.cluster_users_mgmt
-
 }
 
 module "iam" {
