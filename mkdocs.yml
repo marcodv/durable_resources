@@ -10,7 +10,8 @@ nav:
     - 'Environments':
         - dev: 'dev.md'
         - prod: 'prod.md'
-        - test: 'test.md'
     - 'modules':
         - iam: 'iam.md'
-        - s3: 'S3-buckets.md' 
+        - s3: 'S3-buckets.md'
+        - createIamUserGroup: 'createIamUserGroup.md'
+        - createIamUsers: 'createIamUsers.md'
