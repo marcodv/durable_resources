@@ -9,7 +9,7 @@ include:
 # Stage availables for this pipeline
 stages:
   - run-security-scan 
-  - infrastructure
+  - infrastructure_dev
   - test_documentation
   - deploy_documentation
 
@@ -22,19 +22,18 @@ run-security-scan:
   script: 
     - echo "Starting Terraform module security scan"
 
-# Run terraform template job from noah-pipelines-templates project
-infrastructure:
-  stage: infrastructure
+# Run build infra for Dev environment
+infrastructure_dev:
+  stage: infrastructure_dev
   extends: .terraform
   variables:
     AWS_PROFILE_ENV: $TF_USER_DURABLE_DEV_ENV
   script:
     - echo "Running durable resource pipeline"
     - cd environments/dev/
-    - pwd
     - terraform init
     - terraform plan -var-file=dev.tfvars
-    - terraform apply -var-file=dev.tfvars -auto-approve 
+    - terraform apply -var-file=dev.tfvars -auto-approve
 
 # Test the build for the Terraform documentation
 test:
