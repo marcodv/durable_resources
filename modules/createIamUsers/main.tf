@@ -27,8 +27,7 @@ resource "aws_iam_user_policy_attachment" "attach_managed_policies_to_user" {
 
 resource "aws_iam_group_membership" "attach_user_to_cluster_group" {
   depends_on = [aws_iam_user.iam_user]
-  count      = length(var.attach_user_to_group)
-  name       = element(var.attach_user_to_group, count.index)
-  users      = [aws_iam_user.iam_user.name]
-  group      = element(var.attach_user_to_group, count.index)
+  name       = element(var.attach_user_to_group, 0)
+  users      = var.cluster_users_mgmt
+  group      = element(var.attach_user_to_group, 0)
 }

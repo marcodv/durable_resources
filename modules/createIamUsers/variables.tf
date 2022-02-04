@@ -26,3 +26,8 @@ variable "attach_user_to_group" {
   description = "List of group to which the user is going to be part of "
   type = list(string)
 }
+
+variable "cluster_users_mgmt" {
+  description = "List of user to attach to the EKS IAM user gorup"
+  type = list(string)
+}

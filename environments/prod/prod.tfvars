@@ -96,4 +96,6 @@ iam_user_name = "Terraform_User_Prod_Env"
 
 aws_managed_policies_list = ["ElasticLoadBalancingFullAccess", "AmazonVPCFullAccess"]
 
+cluster_users_mgmt = ["Terraform_User_Prod_Env", "Terraform_User_Dev_Env", "bastiaan@noah.energy", "marco@noah.energy"]
+
 attach_user_to_group = ["EKSClusterManagement"]

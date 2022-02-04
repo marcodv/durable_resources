@@ -32,6 +32,8 @@ module "createUsers" {
   iam_user_name             = var.iam_user_name
   aws_managed_policies_list = var.aws_managed_policies_list
   attach_user_to_group      = var.attach_user_to_group
+  cluster_users_mgmt = var.cluster_users_mgmt
+
 }
 
 module "iam" {

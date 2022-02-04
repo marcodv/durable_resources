@@ -71,5 +71,3 @@ custom_policies_list = [
 iam_user_name = "Terraform_User_Dev_Env"
 
 aws_managed_policies_list = ["ElasticLoadBalancingFullAccess", "AmazonVPCFullAccess"]
-
-attach_user_to_group = ["EKSClusterManagement"]
