@@ -43,3 +43,30 @@ aim_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2Container
 
 // Add customer policy to worker node
 customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicydevEnv"]
+
+// Policies name for access to tf backend 
+access_tf_backend_policies = [
+  {
+    name        = "AccessDynamoDBBackendDevUser",
+    path        = "/"
+    description = "Access DynamoDB for store/read lockstate file for Dev user"
+  },
+  {
+    name        = "AccessS3BackendDevUser",
+    path        = "/"
+    description = "Access S3 for store/read tf state file for Dev user"
+  }
+]
+
+custom_policies_list = [
+  {
+    name        = "BastionEC2RolePolicy",
+    path        = "/"
+    description = "Role policy to access to the bastion"
+  },
+  {
+    name        = "MixedPermissionDevUser",
+    path        = "/"
+    description = "List of permission for Dev user"
+  }
+]
