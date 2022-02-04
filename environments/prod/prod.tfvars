@@ -43,3 +43,27 @@ aim_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2Container
 
 // Add customer policy to worker node
 customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicyprodEnv"]
+
+// Policies for EKS Cluster group Management
+eks_cluster_management_list_policies = [
+  {
+    name        = "EKSClusterAdmin",
+    path        = "/"
+    description = "Full admin rights to manage EKS"
+  },
+  {
+    name        = "EKSDescribeCluster",
+    path        = "/"
+    description = "List and describe cluster"
+  },
+  {
+    name        = "EKSUpdateCluster",
+    path        = "/"
+    description = "Allow update EKS cluster version"
+  },
+  {
+    name        = "EKSViewNodesWorkload",
+    path        = "/"
+    description = "Describe node and workload"
+  }
+]
