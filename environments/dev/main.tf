@@ -24,8 +24,10 @@ module "createUsers" {
   custom_policies_list      = var.custom_policies_list
   iam_user_name             = var.iam_user_name
   aws_managed_policies_list = var.aws_managed_policies_list
-  attach_user_to_group      = var.attach_user_to_group
+  
 }
+
+/// DESCRIBE CLUSTER DOESN'T WORK :(
 
 module "iam" {
   source = "../../modules/iam"

@@ -21,8 +21,3 @@ variable "aws_managed_policies_list" {
   description = "List of AWS Managed policies to attach to user"
   type = list(string)
 }
-
-variable "attach_user_to_group" {
-  description = "List of group to which the user is going to be part of "
-  type = list(string)
-}
