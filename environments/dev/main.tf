@@ -20,6 +20,7 @@ provider "aws" {
 module "createUsers" {
   source = "../../modules/createIamUsers"
 
+  environment                = var.environment
   access_tf_backend_policies = var.access_tf_backend_policies
   custom_policies_list       = var.custom_policies_list
 }
