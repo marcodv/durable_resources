@@ -67,3 +67,33 @@ eks_cluster_management_list_policies = [
     description = "Describe node and workload"
   }
 ]
+
+// Policies name for access to tf backend 
+custom_policies_list = [
+  {
+    name        = "AccessDynamoDBBackendProdUser",
+    path        = "/"
+    description = "Access DynamoDB for store/read lockstate file for Prod user"
+  },
+  {
+    name        = "AccessS3BackendProdUser",
+    path        = "/"
+    description = "Access S3 for store/read tf state file for Prod user"
+  },
+  {
+    name        = "BastionEC2RolePolicyProdUser",
+    path        = "/"
+    description = "Role policy to access to the bastion"
+  },
+  {
+    name        = "MixedPermissionProdUser",
+    path        = "/"
+    description = "List of permission for Prod user"
+  }
+]
+
+iam_user_name = "Terraform_User_Prod_Env"
+
+aws_managed_policies_list = ["ElasticLoadBalancingFullAccess", "AmazonVPCFullAccess"]
+
+attach_user_to_group = ["EKSClusterManagement"]

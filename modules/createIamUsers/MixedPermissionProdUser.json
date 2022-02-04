@@ -1,0 +1,49 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1469200763880",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreateOpenIDConnectProvider",
+                "iam:CreateRole",
+                "iam:CreateServiceLinkedRole",
+                "iam:CreatePolicy",
+                "iam:DeletePolicy",
+                "iam:DeleteRole",
+                "iam:DetachRolePolicy",
+                "iam:DescribeCluster",
+                "iam:GetGroup",
+                "iam:GetRole",
+                "iam:GetOpenIDConnectProvider",
+                "iam:DeleteOpenIDConnectProvider",
+                "iam:GetPolicy",
+                "iam:GetPolicyVersion",
+                "iam:ListRolePolicies",
+                "iam:ListPolicyVersions",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListInstanceProfilesForRole",
+                "iam:PassRole",
+                "iam:TagRole",
+                "iam:TagPolicy",
+                "iam:TagOpenIDConnectProvider",
+                "iam:UpdateAssumeRolePolicy",
+                "rds:CreateDBParameterGroup",
+                "rds:CreateDBSubnetGroup",
+                "rds:AddTagsToResource",
+                "rds:ModifyDBParameterGroup",
+                "rds:DescribeDBSubnetGroups",
+                "rds:DescribeDBParameterGroups",
+                "rds:ListTagsForResource",
+                "rds:DescribeDBParameters",
+                "rds:DeleteDBSubnetGroup",
+                "rds:CreateDBInstance",
+                "rds:DescribeDBInstances",
+                "rds:DeleteDBInstance",
+                "rds:DeleteDBParameterGroup"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
