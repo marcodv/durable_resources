@@ -21,8 +21,10 @@ module "createUsers" {
   source = "../../modules/createIamUsers"
 
   environment                = var.environment
-  access_tf_backend_policies = var.access_tf_backend_policies
   custom_policies_list       = var.custom_policies_list
+  iam_user_name              = var.iam_user_name
+  aws_managed_policies_list  = var.aws_managed_policies_list
+  attach_user_to_group = var.attach_user_to_group
 }
 
 module "iam" {
