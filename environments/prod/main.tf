@@ -17,6 +17,13 @@ provider "aws" {
   }
 }
 
+module "iamGroupUsers" {
+  source = "../../modules/createIamUserGroup"
+
+  eks_cluster_management_list_policies = var.eks_cluster_management_list_policies
+
+}
+
 module "iam" {
   source = "../../modules/iam"
 

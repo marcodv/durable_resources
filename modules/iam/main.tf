@@ -77,9 +77,10 @@ resource "aws_iam_role_policy_attachment" "aim_customer_policy_attachment_worker
 }
 
 // Create policy for misc permissions for automation users  
-resource "aws_iam_policy" "misc_policy_permission" {
+// TO BE MOVED INSIDE USERS PERMISSIONS GENERIC
+ /*resource "aws_iam_policy" "misc_policy_permission" {
   name        = "PolicyPermissionMisc"
   path        = "/"
   description = "Policy with mixed permission for automation users"
   policy      = file("${path.module}/mixed_permission_account.json")
-}
+} */
