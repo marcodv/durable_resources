@@ -11,6 +11,7 @@ stages:
   - run-security-scan 
   - infrastructure_dev
   - test_documentation
+  - infrastructure_prod
   - deploy_documentation
 
 # Runs tfsec module scan from noah-pipelines-templates project
@@ -29,11 +30,14 @@ infrastructure_dev:
   variables:
     AWS_PROFILE_ENV: $TF_USER_DURABLE_DEV_ENV
   script:
-    - echo "Running durable resource pipeline"
     - cd environments/dev/
     - terraform init
     - terraform plan -var-file=dev.tfvars
     - terraform apply -var-file=dev.tfvars -auto-approve
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
 
 # Test the build for the Terraform documentation
 test:
@@ -42,13 +46,32 @@ test:
   script:
     - echo "Generated Terraform documentations artifact"
   rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
 
+# Run build infra for Dev environment
+infrastructure_prod:
+  stage: infrastructure_prod
+  extends: .terraform
+  variables:
+    AWS_PROFILE_ENV: $TF_USER_DURABLE_PROD_ENV
+  script:
+    - cd environments/prod/
+    - terraform init
+    - terraform plan -var-file=prod.tfvars
+    - terraform apply -var-file=prod.tfvars -auto-approve
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
 
 # Deploy the Terraform Documentation to GitLab pages
 pages:
   stage: deploy_documentation
   extends: .deploy_pages
+  needs:
+  - infrastructure_prod
   script:
     - echo "Publishing Terraform documentations"
   rules:
