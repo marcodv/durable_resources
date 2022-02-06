@@ -17,7 +17,7 @@ provider "aws" {
   }
 }
 
-/*module "createUsers" {
+module "createUsers" {
   source = "../../modules/createIamUsers"
 
   environment               = var.environment
@@ -25,7 +25,7 @@ provider "aws" {
   iam_user_name             = var.iam_user_name
   aws_managed_policies_list = var.aws_managed_policies_list
   
-} */
+}
 
 /// DESCRIBE CLUSTER DOESN'T WORK :(
 
