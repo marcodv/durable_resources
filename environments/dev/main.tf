@@ -18,7 +18,7 @@ provider "aws" {
 }
 
 module "createUsers" {
-  source = "../../modules/createIamUsers"
+  source = "../../modules/iam/createUsers/terraformUsers"
 
   environment               = var.environment
   custom_policies_list      = var.custom_policies_list
@@ -27,7 +27,6 @@ module "createUsers" {
 
 }
 
-/// DESCRIBE CLUSTER DOESN'T WORK :(
 
 module "iam" {
   source = "../../modules/iam"
