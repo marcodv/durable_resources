@@ -1,5 +1,6 @@
 variable "environment" {
-  type = string
+  description = "Environment to deploy"
+  type        = string
 }
 
 variable "alb_ingress_controller_role_env" {
@@ -62,4 +63,13 @@ variable "worker_node_role" {
 variable "customer_policy_worker_node" {
   description = "AWS IAM customer policies for worker node role"
   type        = list(string)
+}
+
+variable "worker_node_manage_ebs_volume" {
+  description = "Worker node policy in order to access to the volume"
+  type = object({
+    name        = string
+    path        = string
+    description = string
+  })
 }

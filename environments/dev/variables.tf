@@ -11,12 +11,20 @@ variable "ec2_full_access" {}
 
 variable "iam_limited_access" {}
 
-variable "eks_all_access" {}
+variable "eks_all_access" {
+  type = object({
+    name        = string
+    path        = string
+    description = string
+  })
+}
 
 variable "alb_ingress_controller_role_env" {
   description = "List of ALB ingress controller roles for environment"
   type        = list(string)
 }
+
+// ========= Refactor these policies to use list of object =======
 
 variable "iam_customer_eks_policies" {
   description = "AWS IAM customer policies for EKS"
@@ -42,6 +50,17 @@ variable "customer_policy_worker_node" {
   description = "AWS IAM customer policies for worker node role"
   type        = list(string)
 }
+
+variable "worker_node_manage_ebs_volume" {
+  description = "Worker node policy in order to access to the volume"
+  type = object({
+    name        = string
+    path        = string
+    description = string
+  })
+}
+
+// ======= Refactor policies up to here =========
 
 variable "custom_policies_list" {
   description = "List of CUSTOM policies to attach to the user"
