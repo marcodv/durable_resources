@@ -20,6 +20,12 @@ iam_limited_access = {
   description = "IAM limited access policy for EKS in Dev Env"
 }
 
+worker_node_manage_ebs_volume = {
+  name        = "EFSClusterPolicydevEnv"
+  path        = "/"
+  description = "Worker node policy to manage EBS volume"
+}
+
 eks_all_access = {
   name        = "AWSAllAccessEKSdevEnv"
   path        = "/"
@@ -42,7 +48,7 @@ worker_node_role = "WorkerNodeRoledevEnv"
 aim_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy"]
 
 // Add customer policy to worker node
-customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicydevEnv"]
+customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicydevEnv", "EFSClusterPolicydevEnv"]
 
 // Policies name for access to tf backend 
 custom_policies_list = [
