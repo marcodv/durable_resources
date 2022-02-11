@@ -10,8 +10,6 @@ variable "alb_ingress_controller_role_env" {
   type        = list(string)
 }
 
-// ========= Refactor these policies to use list of object =======
-
 variable "iam_customer_eks_policies" {
   description = "AWS IAM customer policies for EKS"
   type        = list(string)
@@ -37,8 +35,6 @@ variable "customer_policy_worker_node" {
   type        = list(string)
 }
 
-
-// ======= Refactor policies up to here =========
 
 variable "terraform_user_access_backend_list_policies" {
   description = "List of CUSTOM policies for access to tf state backend"
