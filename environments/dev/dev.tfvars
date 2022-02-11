@@ -2,13 +2,6 @@ environment = "dev"
 
 type_resource = "durable"
 
-/*
-worker_node_manage_ebs_volume = {
-  name        = "EFSClusterPolicydevEnv"
-  path        = "/"
-  description = "Worker node policy to manage EBS volume"
-} */
-
 // This need to contains only name for test env. For dev env need to be used the dev account
 alb_ingress_controller_role_env = ["alb-controller-dev-env"]
 
@@ -25,10 +18,9 @@ worker_node_role = "WorkerNodeRoledevEnv"
 iam_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy"]
 
 // Add customer policy to worker node
-customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicydevEnv", "EFSClusterPolicydevEnv"]
+customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicydevEnv"]
 
 // Policies name for access to tf backend 
-//custom_policies_list = [
   terraform_user_access_backend_list_policies = [
   {
     name        = "AccessDynamoDBBackendDevUser",
