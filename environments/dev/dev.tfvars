@@ -21,7 +21,7 @@ iam_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2Container
 customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicydevEnv"]
 
 // Policies name for access to tf backend 
-  terraform_user_access_backend_list_policies = [
+terraform_user_access_backend_list_policies = [
   {
     name        = "AccessDynamoDBBackendDevUser",
     path        = "/"

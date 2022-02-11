@@ -45,7 +45,7 @@ eks_cluster_management_list_policies = [
 ]
 
 // Policies name for access to tf backend 
-custom_policies_list = [
+terraform_user_access_backend_list_policies = [
   {
     name        = "AccessDynamoDBBackendProdUser",
     path        = "/"
@@ -65,7 +65,10 @@ custom_policies_list = [
     name        = "MixedPermissionProdUser",
     path        = "/"
     description = "List of permission for Prod user"
-  },
+  }
+]
+
+eks_cluster_role_policies = [
   {
     name        = "AWSLimitedAccessIAMprodEnv"
     path        = "/"
