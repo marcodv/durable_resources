@@ -36,15 +36,15 @@ module "createClusterRoles" {
   iam_customer_eks_policies       = var.iam_customer_eks_policies
   alb_ingress_controller_role_env = var.alb_ingress_controller_role_env
   eks_cluster_role_policies       = var.eks_cluster_role_policies
-
 }
 
-/*
-module "iamGroupUsers" {
-  source = "../../modules/createIamUserGroup"
+// Create worker node role
+module "createWorkerNodeRole" {
+  source = "../../modules/iam/createRoles/eksWorkerNodeRole"
 
-  eks_cluster_management_list_policies = var.eks_cluster_management_list_policies
-  attach_user_to_group                 = var.attach_user_to_group
-  cluster_users_mgmt                   = var.cluster_users_mgmt
-} */
+  environment                  = var.environment
+  worker_node_role             = var.worker_node_role
+  iam_aws_worker_node_policies = var.iam_aws_worker_node_policies
+  customer_policy_worker_node  = var.customer_policy_worker_node
+}
 
