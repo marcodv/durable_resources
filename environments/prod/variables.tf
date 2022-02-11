@@ -52,15 +52,6 @@ variable "eks_cluster_management_list_policies" {
   }))
 }
 
-/*variable "custom_policies_list" {
-  description = "List of CUSTOM policies to attach to the user"
-  type = list(object({
-    name        = string
-    path        = string
-    description = string
-  }))
-} */
-
 variable "iam_user_name" {
   description = "Name of the IAM user"
   type = string
@@ -89,3 +80,12 @@ variable "terraform_user_access_backend_list_policies" {
     description = string
   }))
 }
+
+variable "eks_cluster_role_policies" {
+  description = "List of policies for cluster role"
+  type = list(object({
+    name        = string
+    path        = string
+    description = string
+  }))
+} 
