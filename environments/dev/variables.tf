@@ -3,21 +3,21 @@ variable "environment" {
   type        = string
 }
 
-variable "alb_ingress_controller" {}
+//variable "alb_ingress_controller" {}
 
 variable "type_resource" {}
 
-variable "ec2_full_access" {}
+//variable "ec2_full_access" {}
 
-variable "iam_limited_access" {}
+//variable "iam_limited_access" {}
 
-variable "eks_all_access" {
+/*variable "eks_all_access" {
   type = object({
     name        = string
     path        = string
     description = string
   })
-}
+} */
 
 variable "alb_ingress_controller_role_env" {
   description = "List of ALB ingress controller roles for environment"
@@ -41,7 +41,7 @@ variable "worker_node_role" {
   type        = string
 }
 
-variable "aim_aws_worker_node_policies" {
+variable "iam_aws_worker_node_policies" {
   description = "List of policies to attach to the worker node role"
   type        = list(string)
 }
@@ -51,19 +51,11 @@ variable "customer_policy_worker_node" {
   type        = list(string)
 }
 
-variable "worker_node_manage_ebs_volume" {
-  description = "Worker node policy in order to access to the volume"
-  type = object({
-    name        = string
-    path        = string
-    description = string
-  })
-}
 
 // ======= Refactor policies up to here =========
 
-variable "custom_policies_list" {
-  description = "List of CUSTOM policies to attach to the user"
+variable "terraform_user_access_backend_list_policies" {
+  description = "List of CUSTOM policies for access to tf state backend"
   type = list(object({
     name        = string
     path        = string
@@ -80,3 +72,13 @@ variable "aws_managed_policies_list" {
   description = "List of AWS Managed policies to attach to user"
   type = list(string)
 }
+
+
+variable "eks_cluster_role_policies" {
+  description = "List of policies for cluster role"
+  type = list(object({
+    name        = string
+    path        = string
+    description = string
+  }))
+} 

@@ -1,5 +1,5 @@
 // EKS ALB Ingress policy 
-resource "aws_iam_policy" "alb_controller_policy" {
+/*resource "aws_iam_policy" "alb_controller_policy" {
   name        = var.alb_ingress_controller.name
   path        = var.alb_ingress_controller.path
   description = var.alb_ingress_controller.description
@@ -28,6 +28,7 @@ resource "aws_iam_policy" "eks_all_access_policy" {
   path        = var.eks_all_access.path
   description = var.eks_all_access.description
   policy      = file("${path.module}/EksAllAccess.json")
+<<<<<<< HEAD
 }
 
 // Policy for worker node to manage EBS volume
@@ -83,3 +84,6 @@ resource "aws_iam_role_policy_attachment" "aim_customer_policy_attachment_worker
   role       = aws_iam_role.iam_role_worker_node.name
   policy_arn = "arn:aws:iam::848481299679:policy/${element(var.customer_policy_worker_node, count.index)}"
 }
+=======
+} */
+>>>>>>> develop
