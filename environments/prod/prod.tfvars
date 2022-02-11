@@ -2,12 +2,6 @@ environment = "prod"
 
 type_resource = "durable"
 
-/*alb_ingress_controller = {
-  name        = "AWSLoadBalancerControllerIAMPolicyprodEnv"
-  path        = "/"
-  description = "ALB controller Policy in Prod Env"
-} */
-
 // This need to contains only name for test env. For prod env need to be used the prod account
 alb_ingress_controller_role_env = ["alb-controller-prod-env"]
 
