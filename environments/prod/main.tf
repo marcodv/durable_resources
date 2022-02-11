@@ -27,6 +27,18 @@ module "createUsers" {
   aws_managed_policies_list                   = var.aws_managed_policies_list
 }
 
+// Create cluster roles
+module "createClusterRoles" {
+  source = "../../modules/iam/createRoles/eksClusterRole"
+
+  environment                     = var.environment
+  iam_aws_eks_policies            = var.iam_aws_eks_policies
+  iam_customer_eks_policies       = var.iam_customer_eks_policies
+  alb_ingress_controller_role_env = var.alb_ingress_controller_role_env
+  eks_cluster_role_policies       = var.eks_cluster_role_policies
+
+}
+
 /*
 module "iamGroupUsers" {
   source = "../../modules/createIamUserGroup"
@@ -36,33 +48,3 @@ module "iamGroupUsers" {
   cluster_users_mgmt                   = var.cluster_users_mgmt
 } */
 
-/*
-module "createUsers" {
-  source = "../../modules/createIamUsers"
-
-  environment               = var.environment
-  custom_policies_list      = var.custom_policies_list
-  iam_user_name             = var.iam_user_name
-  aws_managed_policies_list = var.aws_managed_policies_list
-}
-
-module "createGroup" {
-  source = "../../modules/"
-} */
-
-/*
-module "iam" {
-  source = "../../modules/iam"
-
-  environment                     = var.environment
-  alb_ingress_controller          = var.alb_ingress_controller
-  ec2_full_access                 = var.ec2_full_access
-  iam_limited_access              = var.iam_limited_access
-  eks_all_access                  = var.eks_all_access
-  alb_ingress_controller_role_env = var.alb_ingress_controller_role_env
-  iam_customer_eks_policies       = var.iam_customer_eks_policies
-  iam_aws_eks_policies            = var.iam_aws_eks_policies
-  iam_aws_worker_node_policies    = var.iam_aws_worker_node_policies
-  worker_node_role                = var.worker_node_role
-  customer_policy_worker_node     = var.customer_policy_worker_node
-} */
