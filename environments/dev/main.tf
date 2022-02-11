@@ -36,7 +36,6 @@ module "createClusterRoles" {
   iam_customer_eks_policies       = var.iam_customer_eks_policies
   alb_ingress_controller_role_env = var.alb_ingress_controller_role_env
   eks_cluster_role_policies       = var.eks_cluster_role_policies
-
 }
 
 // Create worker node role
