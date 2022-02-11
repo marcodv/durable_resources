@@ -49,22 +49,3 @@ module "createWorkerNodeRole" {
   customer_policy_worker_node  = var.customer_policy_worker_node
 }
 
-/*
-module "iam" {
-  source = "../../modules/iam"
-
-  //environment = var.environment
-  // refactor these policies to use a list of policies
-  //alb_ingress_controller          = var.alb_ingress_controller
-  //ec2_full_access                 = var.ec2_full_access
-  //iam_limited_access              = var.iam_limited_access
-  //eks_all_access                  = var.eks_all_access
-  //alb_ingress_controller_role_env = var.alb_ingress_controller_role_env
-  //worker_node_manage_ebs_volume   = var.worker_node_manage_ebs_volume
-  /* refactor up to these policies */
-/*iam_customer_eks_policies    = var.iam_customer_eks_policies
-  iam_aws_eks_policies         = var.iam_aws_eks_policies
-  iam_aws_worker_node_policies = var.iam_aws_worker_node_policies
-  worker_node_role             = var.worker_node_role
-  customer_policy_worker_node  = var.customer_policy_worker_node 
-} */
