@@ -1,4 +1,7 @@
-variable "environment" {}
+variable "environment" {
+  description = "Environment where we want to deploy"
+  type        = string
+}
 
 variable "alb_ingress_controller" {}
 
