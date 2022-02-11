@@ -48,3 +48,11 @@ module "createWorkerNodeRole" {
   customer_policy_worker_node  = var.customer_policy_worker_node
 }
 
+// Create IAM Cluster management group
+module "createClusterMgmtGroup" {
+  source = "../../modules/iam/createGroups"
+
+  eks_cluster_management_list_policies = var.eks_cluster_management_list_policies
+  cluster_users_mgmt                   = var.cluster_users_mgmt
+  attach_user_to_group                 = var.attach_user_to_group
+}
