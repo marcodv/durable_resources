@@ -8,7 +8,7 @@ variable "iam_user_name" {
   type = string
 }
 
-variable "custom_policies_list" {
+variable "terraform_user_access_backend_list_policies" {
   description = "List of CUSTOM policies to attach to the user"
   type = list(object({
     name        = string
@@ -21,3 +21,11 @@ variable "aws_managed_policies_list" {
   description = "List of AWS Managed policies to attach to user"
   type = list(string)
 }
+
+/*variable "alb_ingress_controller" {
+  type = object({
+    name        = string
+    path        = string
+    description = string
+  })
+} */

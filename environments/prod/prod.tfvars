@@ -2,29 +2,11 @@ environment = "prod"
 
 type_resource = "durable"
 
-alb_ingress_controller = {
+/*alb_ingress_controller = {
   name        = "AWSLoadBalancerControllerIAMPolicyprodEnv"
   path        = "/"
   description = "ALB controller Policy in Prod Env"
-}
-
-ec2_full_access = {
-  name        = "AWSFullAccessEC2ForEKSprodEnv"
-  path        = "/"
-  description = "EC2 Full Access policy for EKS in Prod Env"
-}
-
-iam_limited_access = {
-  name        = "AWSLimitedAccessIAMprodEnv"
-  path        = "/"
-  description = "IAM limited access policy for EKS in Prod Env"
-}
-
-eks_all_access = {
-  name        = "AWSAllAccessEKSprodEnv"
-  path        = "/"
-  description = "EKS full access policy in Prod env"
-}
+} */
 
 // This need to contains only name for test env. For prod env need to be used the prod account
 alb_ingress_controller_role_env = ["alb-controller-prod-env"]
@@ -39,7 +21,7 @@ iam_aws_eks_policies = ["AmazonEKSVPCResourceController", "AmazonEKSWorkerNodePo
 worker_node_role = "WorkerNodeRoleprodEnv"
 
 // Policies for the worker node role
-aim_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy"]
+iam_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy"]
 
 // Add customer policy to worker node
 customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicyprodEnv"]
@@ -89,6 +71,26 @@ custom_policies_list = [
     name        = "MixedPermissionProdUser",
     path        = "/"
     description = "List of permission for Prod user"
+  },
+  {
+    name        = "AWSLimitedAccessIAMprodEnv"
+    path        = "/"
+    description = "IAM limited access policy for EKS in Prod Env"
+  },
+  {
+    name        = "AWSFullAccessEC2ForEKSprodEnv"
+    path        = "/"
+    description = "EC2 Full Access policy for EKS in Prod Env"
+  },
+  {
+    name        = "AWSAllAccessEKSprodEnv"
+    path        = "/"
+    description = "EKS full access policy in Prod env"
+  },
+  {
+    name        = "AWSLoadBalancerControllerIAMPolicyprodEnv"
+    path        = "/"
+    description = "ALB controller Policy in Prod Env"
   }
 ]
 
