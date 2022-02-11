@@ -17,13 +17,24 @@ provider "aws" {
   }
 }
 
+// Create IAM terraform user
+module "createUsers" {
+  source = "../../modules/iam/createUsers/terraformUsers"
+
+  environment                                 = var.environment
+  iam_user_name                               = var.iam_user_name
+  terraform_user_access_backend_list_policies = var.terraform_user_access_backend_list_policies
+  aws_managed_policies_list                   = var.aws_managed_policies_list
+}
+
+/*
 module "iamGroupUsers" {
   source = "../../modules/createIamUserGroup"
 
   eks_cluster_management_list_policies = var.eks_cluster_management_list_policies
   attach_user_to_group                 = var.attach_user_to_group
   cluster_users_mgmt                   = var.cluster_users_mgmt
-}
+} */
 
 /*
 module "createUsers" {
@@ -39,6 +50,7 @@ module "createGroup" {
   source = "../../modules/"
 } */
 
+/*
 module "iam" {
   source = "../../modules/iam"
 
@@ -53,4 +65,4 @@ module "iam" {
   iam_aws_worker_node_policies    = var.iam_aws_worker_node_policies
   worker_node_role                = var.worker_node_role
   customer_policy_worker_node     = var.customer_policy_worker_node
-}
+} */

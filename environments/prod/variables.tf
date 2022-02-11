@@ -3,15 +3,15 @@ variable "environment" {
   type        = string
 }
 
-variable "alb_ingress_controller" {}
+//variable "alb_ingress_controller" {}
 
 variable "type_resource" {}
 
-variable "ec2_full_access" {}
+//variable "ec2_full_access" {}
 
-variable "iam_limited_access" {}
+//variable "iam_limited_access" {}
 
-variable "eks_all_access" {}
+//variable "eks_all_access" {}
 
 variable "alb_ingress_controller_role_env" {
   description = "List of ALB ingress controller roles for environment"
@@ -52,14 +52,14 @@ variable "eks_cluster_management_list_policies" {
   }))
 }
 
-variable "custom_policies_list" {
+/*variable "custom_policies_list" {
   description = "List of CUSTOM policies to attach to the user"
   type = list(object({
     name        = string
     path        = string
     description = string
   }))
-}
+} */
 
 variable "iam_user_name" {
   description = "Name of the IAM user"
@@ -79,4 +79,13 @@ variable "attach_user_to_group" {
 variable "cluster_users_mgmt" {
   description = "List of user to attach to the EKS IAM user gorup"
   type = list(string)
+}
+
+variable "terraform_user_access_backend_list_policies" {
+  description = "List of CUSTOM policies for access to tf state backend"
+  type = list(object({
+    name        = string
+    path        = string
+    description = string
+  }))
 }
