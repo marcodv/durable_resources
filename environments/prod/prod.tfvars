@@ -98,3 +98,31 @@ aws_managed_policies_list = ["ElasticLoadBalancingFullAccess", "AmazonVPCFullAcc
 cluster_users_mgmt = ["Terraform_User_Prod_Env", "Terraform_User_Dev_Env", "bastiaan@noah.energy", "marco@noah.energy"]
 
 attach_user_to_group = ["EKSClusterManagement"]
+
+// List of applications users with bucket name and policy
+application_users = [
+  {
+    user_name     = "app_User_dev_Env",
+    policy_name   = "DjangoBucketPolicydevEnv",
+    public_bucket = "django-public-bucket-dev-env",
+    private_bucket = "django-private-bucket-dev-env"
+  },
+  {
+    user_name   = "app_User_stage_Env",
+    policy_name = "DjangoBucketPolicystageEnv",
+    public_bucket = "django-public-bucket-stage-env",
+    private_bucket = "django-private-bucket-stage-env"
+  },
+  {
+    user_name   = "app_User_prod_Env",
+    policy_name = "DjangoBucketPolicyprodEnv",
+    public_bucket = "django-public-bucket-prod-env",
+    private_bucket = "django-private-bucket-prod-env"
+  }
+]
+
+// List of Django public buckets
+django_public_buckets = ["django-public-bucket-dev-env", "django-public-bucket-stage-env", "django-public-bucket-prod-env"]
+
+// List of Django private buckets 
+django_private_buckets = ["django-private-bucket-dev-env", "django-private-bucket-stage-env", "django-private-bucket-prod-env"]
