@@ -12,7 +12,6 @@
 declare -a dir_list=("environments" "modules")
 
 root_project_dir=$(pwd)
-#echo $root_project_dir
 for dir in "${dir_list[@]}"
 do
    
@@ -23,12 +22,15 @@ do
      do
       subdir=${subdir%?}
       cd $root_project_dir/$dir/$subdir
-      second_level_dir=(`ls -d */`)
-     for secondLevelDir in "${second_level_dir[@]}"
+      sub_modules_dir=(`find . -mindepth 0 -type d | grep -v ".terraform"`)
+     for subModulesDir in "${sub_modules_dir[@]}"
        do
-        secondLevelDir=${secondLevelDir%?}
+        secondLevelDir=${subModulesDir:2}
         cd $root_project_dir/$dir/$subdir/$secondLevelDir
-        echo $root_project_dir/$dir/$subdir/$secondLevelDir
+        # check if main.tf exists. If yes created docs, else skip this folder
+        if [ ! -f "$root_project_dir/$dir/$subdir/$secondLevelDir/main.tf" ]; then
+          echo $root_project_dir/$dir/$subdir/$secondLevelDir
+        fi
         #terraform-docs markdown table --output-file "${subdir}.md" --output-mode inject "$root_project_dir/$dir/$subdir/$secondLevelDir"
         #mv $root_project_dir/$dir/$subdir/$secondLevelDir/"${subdir}".md $root_project_dir/docs/
      done 
