@@ -1,3 +1,16 @@
+/* 
+ * This module is used to create a IAM Django app account for dev, stage and prod environment
+ *
+ * To each account are assigned different IAM bucket policies
+ *    
+ *
+ * These are the accounts created
+ *
+ * - app_User_dev_Env
+ * - app_User_stage_Env
+ * - app_User_prod_Env
+*/
+
 // Create users for development, staging and production envs
 resource "aws_iam_user" "iam_user" {
   for_each = { for k, v in var.application_users : k => v }

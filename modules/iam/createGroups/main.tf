@@ -1,3 +1,15 @@
+/* 
+ * This module is used to create a IAM groups for dev and prod environment
+ *
+ * To each group are assigned different IAM accounts
+ *  
+ * Each group have managed and custom policies  
+ *
+ * These are the groups created
+ *
+ * - EKSClusterManagement
+*/
+
 // Create cluster group
 resource "aws_iam_group" "eks_cluster_mgmt" {
   depends_on = [aws_iam_policy.cluster_mgmt_policies_list]

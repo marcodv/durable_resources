@@ -1,3 +1,16 @@
+/* 
+ * This module is used to create a IAM Worker Node roles for dev and prod environment
+ *
+ * To each role are assigned different IAM accounts
+ *  
+ * Each role have managed and custom policies  
+ *
+ * These are the roles created
+ *
+ * - WorkerNodeRoledevEnv
+ * - WorkerNodeRoleprodEnv
+*/
+
 // Worker node role 
 resource "aws_iam_role" "iam_role_worker_node" {
   name               = var.worker_node_role

@@ -41,7 +41,8 @@
                 "rds:DescribeDBInstances",
                 "rds:DeleteDBInstance",
                 "rds:ModifyDBInstance",
-                "rds:DeleteDBParameterGroup"
+                "rds:DeleteDBParameterGroup",
+                "elasticache:CreateCacheParameterGroup"
             ],
             "Effect": "Allow",
             "Resource": "*"

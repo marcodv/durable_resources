@@ -21,10 +21,17 @@ do
    # Looping over subfolders
    for subdir in "${sub_dir[@]}"
      do
-     subdir=${subdir%?}
-     cd $root_project_dir/$dir/$subdir
-     terraform-docs markdown table --output-file "${subdir}.md" --output-mode inject "$root_project_dir/$dir/$subdir"
-     mv $root_project_dir/$dir/$subdir/"${subdir}".md $root_project_dir/docs/
+      subdir=${subdir%?}
+      cd $root_project_dir/$dir/$subdir
+      second_level_dir=(`ls -d */`)
+     for secondLevelDir in "${second_level_dir[@]}"
+       do
+        secondLevelDir=${secondLevelDir%?}
+        cd $root_project_dir/$dir/$subdir/$secondLevelDir
+        echo $root_project_dir/$dir/$subdir/$secondLevelDir
+        #terraform-docs markdown table --output-file "${subdir}.md" --output-mode inject "$root_project_dir/$dir/$subdir/$secondLevelDir"
+        #mv $root_project_dir/$dir/$subdir/$secondLevelDir/"${subdir}".md $root_project_dir/docs/
+     done 
    done
    cd $root_project_dir 
 

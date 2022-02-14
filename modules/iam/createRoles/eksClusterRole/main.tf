@@ -1,3 +1,16 @@
+/* 
+ * This module is used to create a IAM Cluster roles for dev and prod environment
+ *
+ * To each role are assigned different IAM accounts
+ *  
+ * Each role have managed and custom policies  
+ *
+ * These are the roles created
+ *
+ * - eks-role-dev-env
+ * - eks-role-prod-env
+*/
+
 // Create EKS cluster role for test and prod env
 resource "aws_iam_role" "iam_role_eks_cluster" {
   //change name cluster role
