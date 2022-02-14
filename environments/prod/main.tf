@@ -56,3 +56,18 @@ module "createClusterMgmtGroup" {
   cluster_users_mgmt                   = var.cluster_users_mgmt
   attach_user_to_group                 = var.attach_user_to_group
 }
+
+// Create IAM Django applications users
+module "createAppsUsers" {
+  source = "../../modules/iam/createUsers/developmentUsers"
+
+  application_users = var.application_users
+}
+
+// Create Django public and private buckets
+module "createDjangoBuckets" {
+  source = "../../modules/S3Buckets/djangoBuckets"
+
+  django_public_buckets  = var.django_public_buckets
+  django_private_buckets = var.django_private_buckets
+}

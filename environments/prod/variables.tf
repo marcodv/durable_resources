@@ -15,7 +15,7 @@ variable "type_resource" {}
 
 variable "alb_ingress_controller_role_env" {
   description = "List of ALB ingress controller roles for environment"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "iam_customer_eks_policies" {
@@ -30,7 +30,7 @@ variable "iam_aws_eks_policies" {
 
 variable "worker_node_role" {
   description = "Name of the worker node role"
-  type = string
+  type        = string
 }
 
 variable "iam_aws_worker_node_policies" {
@@ -54,22 +54,22 @@ variable "eks_cluster_management_list_policies" {
 
 variable "iam_user_name" {
   description = "Name of the IAM user"
-  type = string
+  type        = string
 }
 
 variable "aws_managed_policies_list" {
   description = "List of AWS Managed policies to attach to user"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "attach_user_to_group" {
   description = "List of group to which the user is going to be part of "
-  type = list(string)
+  type        = list(string)
 }
 
 variable "cluster_users_mgmt" {
   description = "List of user to attach to the EKS IAM user gorup"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "terraform_user_access_backend_list_policies" {
@@ -88,4 +88,24 @@ variable "eks_cluster_role_policies" {
     path        = string
     description = string
   }))
-} 
+}
+
+variable "application_users" {
+  description = "List of users to be used for development, staging and production environments"
+  type = list(object({
+    user_name      = string
+    policy_name    = string
+    public_bucket  = string
+    private_bucket = string
+  }))
+}
+
+variable "django_public_buckets" {
+  description = "List of public buckets used by django app"
+  type        = list(string)
+}
+
+variable "django_private_buckets" {
+  description = "List of private buckets used by django app"
+  type        = list(string)
+}
