@@ -1,3 +1,19 @@
+/* 
+ * The file in the Dev folder of this project, allow you to create durable resources for Dev env
+ *
+ * Dev and Prod env create different resources.
+ *
+ * If you want to change any of the values for the resources created here,  
+ *
+ * you need to edit dev.tfvars
+ *
+ * This is the list of durable resources created for **Dev environment**
+ *
+ * - Terraform users
+ * - Cluster role 
+ * - Worker node role
+*/
+
 terraform {
   backend "s3" {
     bucket         = "terraform-state-durable-dev-env"

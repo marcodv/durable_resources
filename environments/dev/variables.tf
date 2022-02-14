@@ -3,7 +3,10 @@ variable "environment" {
   type        = string
 }
 
-variable "type_resource" {}
+variable "type_resource" {
+  description = "Tag applied to each resources created in dev env"
+  type        = string
+}
 
 variable "alb_ingress_controller_role_env" {
   description = "List of ALB ingress controller roles for environment"
@@ -47,12 +50,12 @@ variable "terraform_user_access_backend_list_policies" {
 
 variable "iam_user_name" {
   description = "Name of the IAM user"
-  type = string
+  type        = string
 }
 
 variable "aws_managed_policies_list" {
   description = "List of AWS Managed policies to attach to user"
-  type = list(string)
+  type        = list(string)
 }
 
 

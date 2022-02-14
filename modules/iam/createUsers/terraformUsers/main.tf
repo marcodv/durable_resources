@@ -1,3 +1,15 @@
+/* 
+ * This module is used to create a IAM terraform account for dev and prod environment
+ *
+ * To each account are assigned different IAM custom and AWS policies
+ *    
+ *
+ * These are the accounts created
+ *
+ * - Terraform_User_Dev_Env
+ * - Terraform_User_Prod_Env
+*/
+
 // Create tf user
 resource "aws_iam_user" "iam_user" {
   name = var.iam_user_name

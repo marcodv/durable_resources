@@ -3,15 +3,10 @@ variable "environment" {
   type        = string
 }
 
-//variable "alb_ingress_controller" {}
-
-variable "type_resource" {}
-
-//variable "ec2_full_access" {}
-
-//variable "iam_limited_access" {}
-
-//variable "eks_all_access" {}
+variable "type_resource" {
+  description = "Tag applied to each resources created in dev env"
+  type        = string
+}
 
 variable "alb_ingress_controller_role_env" {
   description = "List of ALB ingress controller roles for environment"

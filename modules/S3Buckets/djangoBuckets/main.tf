@@ -1,3 +1,18 @@
+/* 
+ * This module is used create S3 bucket for app in dev,staging and prod environment
+ *
+ * Each of the environments have 1 public and 1 private bucket
+ *
+ * These are the buckets created
+ *
+ * - django-private-bucket-dev-env
+ * - django-private-bucket-stage-env
+ * - django-private-bucket-prod-env
+ * - django-public-bucket-dev-env
+ * - django-public-bucket-stage-env
+ * - django-public-bucket-prod-env
+*/
+
 // Block required in order to use versioning for buckets
 // Terraform issue 
 // https://github.com/hashicorp/terraform-provider-aws/issues/23106
