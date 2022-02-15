@@ -45,7 +45,8 @@
                 "elasticache:CreateCacheParameterGroup",
                 "elasticache:AddTagsToResource",
                 "elasticache:DescribeCacheParameterGroups",
-                "elasticache:ListTagsForResource"
+                "elasticache:ListTagsForResource",
+                "elasticache:*"
             ],
             "Effect": "Allow",
             "Resource": "*"
