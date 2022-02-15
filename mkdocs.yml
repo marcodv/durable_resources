@@ -1,8 +1,11 @@
 site_name: AWS Durable Resources Terraform Documentation
-site_url: "https://noah-energy.gitlab.io/durable-resources-aws"
+site_url: "https://gitlab.com/noah-energy/infranoah/durable-resources-aws"
+repo_url: https://gitlab.com/noah-energy/infranoah/durable-resources-aws
 site_dir: public
 theme:
   name: material
+  icon:
+    repo: fontawesome/brands/gitlab
   features:
       - navigation.expand
 nav:
@@ -11,7 +14,13 @@ nav:
         - dev: 'dev.md'
         - prod: 'prod.md'
     - 'modules':
-        - iam: 'iam.md'
-        - s3: 'S3-buckets.md'
-        - createIamUserGroup: 'createIamUserGroup.md'
-        - createIamUsers: 'createIamUsers.md'
+        - s3: 
+            - bucketDjango: 'djangoBuckets.md'
+        - createIamGroups:
+            - groupEKS: 'createGroups.md'
+        - usersAccountIAM:
+            - developmentUsers: 'developmentUsers.md'
+            - terraformUsers: 'terraformUsers.md'
+        - Roles:
+            - workerNode: 'eksWorkerNodeRole.md'
+            - clusterEKS: 'eksClusterRole.md'

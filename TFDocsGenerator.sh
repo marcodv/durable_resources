@@ -22,10 +22,20 @@ for subdir in "${sub_dir[@]}"
     mv "$root_project_dir/environments/$dir/$subdir/"${subdir}".md" $root_project_dir/docs/
 done
 
-# Iterate over modules
-cd $root_project_dir
-root_project_dir=$(pwd)
-# Iterate over modules
 cd "$root_project_dir/modules"
-sub_dir=(`ls -d "$root_project_dir/modules/*" `)
-echo $sub_dir
+top_dir=( $(ls .) )
+for topdir in "${top_dir[@]}"
+  do
+    cd "$root_project_dir/modules/$topdir"
+    sub_dir=( $(find . -mindepth 1 -type d) )
+    for subdir in "${sub_dir[@]}"
+      do
+      dir=${subdir:2}
+      cd $dir
+      if [ -e "main.tf" ]; then
+        terraform-docs markdown table --output-file "$root_project_dir/modules/$topdir/${dir}.md" --output-mode inject "$root_project_dir/modules/$topdir/$dir"
+        mv "$root_project_dir/modules/$topdir/${dir}.md" $root_project_dir/docs/ 
+      fi
+      cd "$root_project_dir/modules/$topdir/" 
+    done
+  done
