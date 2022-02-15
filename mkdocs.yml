@@ -1,6 +1,6 @@
 site_name: AWS Durable Resources Terraform Documentation
-site_url: "https://noah-energy.gitlab.io/durable-resources-aws"
-repo_url: https://noah-energy.gitlab.io/durable-resources-aws
+site_url: "https://gitlab.com/noah-energy/infranoah/durable-resources-aws"
+repo_url: https://gitlab.com/noah-energy/infranoah/durable-resources-aws
 site_dir: public
 theme:
   name: material
