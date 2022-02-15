@@ -44,7 +44,8 @@
                 "rds:DeleteDBParameterGroup",
                 "elasticache:CreateCacheParameterGroup",
                 "elasticache:AddTagsToResource",
-                "elasticache:DescribeCacheParameterGroups"
+                "elasticache:DescribeCacheParameterGroups",
+                "elasticache:ListTagsForResource"
             ],
             "Effect": "Allow",
             "Resource": "*"
