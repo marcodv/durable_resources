@@ -42,10 +42,6 @@
                 "rds:DeleteDBInstance",
                 "rds:ModifyDBInstance",
                 "rds:DeleteDBParameterGroup",
-                "elasticache:CreateCacheParameterGroup",
-                "elasticache:AddTagsToResource",
-                "elasticache:DescribeCacheParameterGroups",
-                "elasticache:ListTagsForResource",
                 "elasticache:*"
             ],
             "Effect": "Allow",
