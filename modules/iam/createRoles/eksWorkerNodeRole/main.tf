@@ -17,6 +17,14 @@ resource "aws_iam_role" "iam_role_worker_node" {
   assume_role_policy = file("${path.module}/worker-node-role.json")
 }
 
+// Create Hosted zone policy
+resource "aws_iam_policy" "list_hosted_zone_policy" {
+  name        = "listHostedZonePolicy"
+  path        = "/"
+  description = "Policy to list hosted zone for workerNodeRole"
+  policy      = file("${path.module}/listHostedZonePolicy.json")
+}
+
 // Attach AWS policy to worker node role
 resource "aws_iam_role_policy_attachment" "iam_managed_policy_attachment_worker_node" {
   depends_on = [aws_iam_role.iam_role_worker_node]
