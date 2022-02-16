@@ -18,7 +18,7 @@ worker_node_role = "WorkerNodeRoleprodEnv"
 iam_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy", "AmazonEKSClusterPolicy"]
 
 // Add customer policy to worker node
-customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicyprodEnv"]
+customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicyprodEnv", "listHostedZonePolicy"]
 
 // Policies for EKS Cluster group Management
 eks_cluster_management_list_policies = [
