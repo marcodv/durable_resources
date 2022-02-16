@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "iam_managed_policy_attachment_worker_
 
 // Attach CUSTOMER policy to worker node role
 resource "aws_iam_role_policy_attachment" "aim_customer_policy_attachment_worker_node" {
-  depends_on = [aws_iam_role.iam_role_worker_node]
+  depends_on = [aws_iam_role.iam_role_worker_node, aws_iam_policy.list_hosted_zone_policy]
   count      = length(var.customer_policy_worker_node)
   role       = aws_iam_role.iam_role_worker_node.name
   policy_arn = "arn:aws:iam::848481299679:policy/${element(var.customer_policy_worker_node, count.index)}"
