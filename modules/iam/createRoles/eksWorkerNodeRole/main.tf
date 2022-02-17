@@ -19,10 +19,10 @@ resource "aws_iam_role" "iam_role_worker_node" {
 
 // Create Hosted zone policy
 resource "aws_iam_policy" "list_hosted_zone_policy" {
-  name        = "listHostedZonePolicy"
+  name        = "${var.manage_hosted_zone_policy}"
   path        = "/"
   description = "Policy to list hosted zone for workerNodeRole"
-  policy      = file("${path.module}/listHostedZonePolicy.json")
+  policy      = file("${path.module}/${var.manage_hosted_zone_policy}.json")
 }
 
 // Attach AWS policy to worker node role

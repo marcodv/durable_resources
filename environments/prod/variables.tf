@@ -104,3 +104,8 @@ variable "django_private_buckets" {
   description = "List of private buckets used by django app"
   type        = list(string)
 }
+
+variable "manage_hosted_zone_policy" {
+  description = "Policy to manage hosted zone"
+  type        = string
+}

@@ -65,6 +65,7 @@ module "createWorkerNodeRole" {
   worker_node_role             = var.worker_node_role
   iam_aws_worker_node_policies = var.iam_aws_worker_node_policies
   customer_policy_worker_node  = var.customer_policy_worker_node
+  manage_hosted_zone_policy    = var.manage_hosted_zone_policy
 }
 
 // Create IAM Cluster management group
