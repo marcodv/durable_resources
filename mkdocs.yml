@@ -21,6 +21,7 @@ nav:
         - usersAccountIAM:
             - developmentUsers: 'developmentUsers.md'
             - terraformUsers: 'terraformUsers.md'
+            - cnamesMgmtUser: 'cnamesMgmtUser.md'
         - Roles:
             - workerNode: 'eksWorkerNodeRole.md'
             - clusterEKS: 'eksClusterRole.md'
