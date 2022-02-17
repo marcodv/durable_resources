@@ -22,7 +22,7 @@ resource "aws_iam_policy" "list_hosted_zone_policy" {
   name        = "listHostedZonePolicy"
   path        = "/"
   description = "Policy to list hosted zone for workerNodeRole"
-  policy      = file("${path.module}/listHostedZonePolicy.json")
+  policy      = file("${path.module}/${var.manage_hosted_zone_policy}.json")
 }
 
 // Attach AWS policy to worker node role

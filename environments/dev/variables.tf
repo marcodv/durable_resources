@@ -66,4 +66,9 @@ variable "eks_cluster_role_policies" {
     path        = string
     description = string
   }))
-} 
+}
+
+variable "manage_hosted_zone_policy" {
+  description = "Policy to manage hosted zone"
+  type        = string
+}

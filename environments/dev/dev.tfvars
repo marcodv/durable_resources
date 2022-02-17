@@ -17,8 +17,11 @@ worker_node_role = "WorkerNodeRoledevEnv"
 // Policies for the worker node role
 iam_aws_worker_node_policies = ["AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy", "AmazonEKSClusterPolicy"]
 
+// Policy to manage hosted zone
+manage_hosted_zone_policy = "listHostedZonePolicydevEnv"
+
 // Add customer policy to worker node
-customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicydevEnv", "listHostedZonePolicy"]
+customer_policy_worker_node = ["AWSLoadBalancerControllerIAMPolicydevEnv", "listHostedZonePolicydevEnv"]
 
 // Policies name for access to tf backend 
 terraform_user_access_backend_list_policies = [

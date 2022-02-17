@@ -17,3 +17,8 @@ variable "customer_policy_worker_node" {
   description = "AWS IAM customer policies for worker node role"
   type        = list(string)
 }
+
+variable "manage_hosted_zone_policy" {
+  description = "Policy to manage hosted zone"
+  type        = string
+}
