@@ -91,3 +91,11 @@ module "createDjangoBuckets" {
   django_public_buckets  = var.django_public_buckets
   django_private_buckets = var.django_private_buckets
 }
+
+// Create User to create CNAMEs records for landing pages
+module "createMgmtLandingPageUser" {
+  source = "../../modules/iam/createUsers/cnamesMgmtUser"
+
+  user_name_mgmt_landing_page           = var.user_name_mgmt_landing_page
+  cnames_landing_pages_mgmt_policy_name = var.cnames_landing_pages_mgmt_policy_name
+}
