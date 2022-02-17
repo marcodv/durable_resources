@@ -129,3 +129,9 @@ django_public_buckets = ["django-public-bucket-dev-env", "django-public-bucket-s
 
 // List of Django private buckets 
 django_private_buckets = ["django-private-bucket-dev-env", "django-private-bucket-stage-env", "django-private-bucket-prod-env"]
+
+// account to create cnames records 
+user_name_mgmt_landing_page = "user_mgmt_cnames_records"
+
+// Policy name to assign to the user for create cnames records
+cnames_landing_pages_mgmt_policy_name = "cnameRecordsMgmtPolicy"
