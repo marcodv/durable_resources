@@ -29,6 +29,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_createAppsUsers"></a> [createAppsUsers](#module\_createAppsUsers) | ../../modules/iam/createUsers/developmentUsers | n/a |
+| <a name="module_createBubbleBackupRole"></a> [createBubbleBackupRole](#module\_createBubbleBackupRole) | ../../modules/iam/createRoles/lambdaRole | n/a |
 | <a name="module_createClusterMgmtGroup"></a> [createClusterMgmtGroup](#module\_createClusterMgmtGroup) | ../../modules/iam/createGroups | n/a |
 | <a name="module_createClusterRoles"></a> [createClusterRoles](#module\_createClusterRoles) | ../../modules/iam/createRoles/eksClusterRole | n/a |
 | <a name="module_createDjangoBuckets"></a> [createDjangoBuckets](#module\_createDjangoBuckets) | ../../modules/S3Buckets/djangoBuckets | n/a |
@@ -60,6 +61,7 @@ No resources.
 | <a name="input_iam_aws_worker_node_policies"></a> [iam\_aws\_worker\_node\_policies](#input\_iam\_aws\_worker\_node\_policies) | List of policies to attach to the worker node role | `list(string)` | n/a | yes |
 | <a name="input_iam_customer_eks_policies"></a> [iam\_customer\_eks\_policies](#input\_iam\_customer\_eks\_policies) | AWS IAM customer policies for EKS | `list(string)` | n/a | yes |
 | <a name="input_iam_user_name"></a> [iam\_user\_name](#input\_iam\_user\_name) | Name of the IAM user | `string` | n/a | yes |
+| <a name="input_lambda_role_bubble_backup"></a> [lambda\_role\_bubble\_backup](#input\_lambda\_role\_bubble\_backup) | Role name for lambda function to call teh Bubble backup script | `string` | n/a | yes |
 | <a name="input_manage_hosted_zone_policy"></a> [manage\_hosted\_zone\_policy](#input\_manage\_hosted\_zone\_policy) | Policy to manage hosted zone | `string` | n/a | yes |
 | <a name="input_terraform_user_access_backend_list_policies"></a> [terraform\_user\_access\_backend\_list\_policies](#input\_terraform\_user\_access\_backend\_list\_policies) | List of CUSTOM policies for access to tf state backend | <pre>list(object({<br>    name        = string<br>    path        = string<br>    description = string<br>  }))</pre> | n/a | yes |
 | <a name="input_type_resource"></a> [type\_resource](#input\_type\_resource) | Tag applied to each resources created in dev env | `string` | n/a | yes |
