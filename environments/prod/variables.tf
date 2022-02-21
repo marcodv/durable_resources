@@ -119,3 +119,8 @@ variable "user_name_mgmt_landing_page" {
   description = "Username used to update CNAMEs Records for HubSpot LandingPages"
   type        = string
 }
+
+variable "lambda_role_bubble_backup" {
+  description = "Role name for lambda function to call teh Bubble backup script"
+  type        = string
+}

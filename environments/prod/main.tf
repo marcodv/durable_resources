@@ -99,3 +99,11 @@ module "createMgmtLandingPageUser" {
   user_name_mgmt_landing_page           = var.user_name_mgmt_landing_page
   cnames_landing_pages_mgmt_policy_name = var.cnames_landing_pages_mgmt_policy_name
 }
+
+// Create Lambda Role to perform call to Bubble backup GA script
+module "createBubbleBackupRole" {
+  source = "../../modules/iam/createRoles/lambdaRole"
+
+  environment               = var.environment
+  lambda_role_bubble_backup = var.lambda_role_bubble_backup
+}
