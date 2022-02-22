@@ -7,7 +7,7 @@
                         "s3:GetBucketLocation",
                         "s3:ListAllMyBuckets"
                       ],
-            "Resource": "arn:aws:s3:::${djangoBucketNamePublic}"
+            "Resource": "arn:aws:s3:::${djangoBucketNamePublic}/*"
         },
         {
             "Effect": "Allow",
