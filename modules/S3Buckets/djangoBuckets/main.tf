@@ -26,7 +26,7 @@ terraform {
 resource "aws_s3_bucket" "django_public_buckets" {
   count  = length(var.django_public_buckets)
   bucket = element(var.django_public_buckets, count.index)
-
+  acl    = "public-read"
   versioning {
     enabled = true
   }
