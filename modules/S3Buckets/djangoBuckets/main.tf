@@ -32,6 +32,16 @@ resource "aws_s3_bucket" "django_public_buckets" {
   }
 }
 
+// Create a bucket policies for full anonimous access 
+resource "aws_s3_bucket_policy" "policy_django_public_bucket" {
+  depends_on = [
+    aws_s3_bucket.django_public_buckets
+  ]
+  count  = length(var.django_public_buckets)
+  bucket = element(var.django_public_buckets, count.index)
+  policy = templatefile("${path.module}/policyPublicBucket.tpl", { djangoBucketNamePublic = "${element(var.django_public_buckets, count.index)}" })
+}
+
 // Create Django private buckets
 resource "aws_s3_bucket" "django_private_buckets" {
   count  = length(var.django_private_buckets)
