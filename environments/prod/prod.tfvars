@@ -138,3 +138,6 @@ cnames_landing_pages_mgmt_policy_name = "cnameRecordsMgmtPolicy"
 
 // Role name for Lambda function in order to call the Bubble backups script
 lambda_role_bubble_backup = "lambdaRoleBubbleBackupprodEnv"
+
+// List of environment in app script for call backup 
+lambdaFunctionsEnvironmets = ["UAT", "test", "production"]

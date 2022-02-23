@@ -25,3 +25,6 @@ nav:
         - Roles:
             - workerNode: 'eksWorkerNodeRole.md'
             - clusterEKS: 'eksClusterRole.md'
+            - lambdaRole: 'lambdaRole.md'
+        - LambdaFunctions:
+            - bubbleBackup: 'bubbleBackup.md'
