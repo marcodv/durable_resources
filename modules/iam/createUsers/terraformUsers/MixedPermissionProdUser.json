@@ -42,7 +42,11 @@
                 "rds:DeleteDBInstance",
                 "rds:ModifyDBInstance",
                 "rds:DeleteDBParameterGroup",
-                "elasticache:*"
+                "elasticache:*",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DeleteResourcePolicy",
+                "logs:CreateLogStream"
             ],
             "Effect": "Allow",
             "Resource": "*"

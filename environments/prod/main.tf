@@ -7,7 +7,7 @@
  *
  * you need to edit dev.tfvars
  *
- * This is the list of durable resources created for **Dev environment**
+ * This is the list of durable resources created for **Prod environment**
  *
  * - Terraform users
  * - Cluster role 
@@ -106,4 +106,13 @@ module "createBubbleBackupRole" {
 
   environment               = var.environment
   lambda_role_bubble_backup = var.lambda_role_bubble_backup
+}
+
+// Create Lambda function to call Bubble backup script
+module "createBubbleBackupLambda" {
+  source = "../../modules/lambdaFunctions/bubbleBackup"
+
+  environment               = var.environment
+  lambda_role_bubble_backup = var.lambda_role_bubble_backup
+  lambdaFunctionsEnvironmets = var.lambdaFunctionsEnvironmets
 }

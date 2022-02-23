@@ -1,4 +1,4 @@
-# AWS INFRA 
+# AWS Durable Resources 
 
 This docs describe the durable resources deploy by Terraform via GitLab
 
@@ -10,6 +10,7 @@ This repo manage the creation of the following
 - IAM users accounts
 - IAM groups users
 - IAM roles
+- Lambda functions
 
 
 
