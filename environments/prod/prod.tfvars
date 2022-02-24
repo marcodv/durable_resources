@@ -146,7 +146,7 @@ lambdaFunctionsEnvironmets = ["UAT", "test", "production"]
 read_only_billing_policy = "awsBillingPolicyprodEnv"
 
 // Grafana role name
-grafana_role = "grafanaRoledprodnv"
+grafana_role = "grafanaRoledprodEnv"
 
 // Grafana user name
 grafana_user = "grafanaUserprodEnv"
