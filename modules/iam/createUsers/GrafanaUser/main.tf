@@ -19,5 +19,5 @@ resource "aws_iam_user" "grafana_user" {
 resource "aws_iam_user_policy_attachment" "aim_customer_policy_attachment_worker_node" {
   depends_on = [aws_iam_user.grafana_user]
   user       = aws_iam_user.grafana_user.name
-  policy_arn = "arn:aws:iam::848481299679:policy/awsBillingPolicydevEnv"
+  policy_arn = "arn:aws:iam::848481299679:policy/${var.read_only_billing_policy}"
 }
