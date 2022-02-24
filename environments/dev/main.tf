@@ -80,4 +80,5 @@ module "createGrafanaUser" {
 
   environment              = var.environment
   grafana_user             = var.grafana_user
+  read_only_billing_policy = var.read_only_billing_policy
 }

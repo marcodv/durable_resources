@@ -116,3 +116,21 @@ module "createBubbleBackupLambda" {
   lambda_role_bubble_backup = var.lambda_role_bubble_backup
   lambdaFunctionsEnvironmets = var.lambdaFunctionsEnvironmets
 }
+
+// Create Grafana role 
+module "createGrafanaRole" {
+  source = "../../modules/iam/createRoles/grafanaRoleCloudWatch"
+
+  environment              = var.environment
+  read_only_billing_policy = var.read_only_billing_policy
+  grafana_role             = var.grafana_role
+}
+
+// Create Grafana User
+module "createGrafanaUser" {
+  source = "../../modules/iam/createUsers/grafanaUser"
+
+  environment              = var.environment
+  grafana_user             = var.grafana_user
+  read_only_billing_policy = var.read_only_billing_policy
+}
