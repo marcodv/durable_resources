@@ -141,3 +141,6 @@ lambda_role_bubble_backup = "lambdaRoleBubbleBackupprodEnv"
 
 // List of environment in app script for call backup 
 lambdaFunctionsEnvironmets = ["UAT", "test", "production"]
+
+// policy to assign the read only view for grafana
+read_only_billing_policy = "awsBillingPolicyprodEnv"

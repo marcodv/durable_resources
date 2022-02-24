@@ -81,7 +81,7 @@ exports.handler = async (event, context, callback) => {
     // options for App Script
     var options = {
         hostname: 'script.google.com',
-        path: '/macros/s/AKfycbxjmZqDu5jfekdGGhjH_qAJD-BjBep3NcSojjsIghbzfskUQeqgyXoLktjajkrlbHqKeg/exec?name=production',
+        path: '/macros/s/AKfycbxC4UMoiFym-jdqqQD-3qOinP5IflFX96sca5C15ltLaAxAh9DmEN20kcsAGblWhKCE6w/exec?name=production',
         method: 'GET',
         port: 443,
         followAllRedirects: true,
@@ -97,10 +97,16 @@ exports.handler = async (event, context, callback) => {
 
         const messageBody = {
             "username": "Backup production",
-            "text": "Backup for production finished>",
-            "icon_emoji": ":sunglasses:"
+            "text": "Backup for production finished",
+            "icon_emoji": ":white_check_mark:"
         };
         
+        const messageBodyError = {
+            "username": "Backup production",
+            "text": "Backup for production finished with issues",
+            "icon_emoji": ":x:"
+        };
+
         const slackWebHook = 'https://hooks.slack.com/services/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' ;
 
         try {
@@ -111,12 +117,14 @@ exports.handler = async (event, context, callback) => {
             // send notification to Slack
             console.log('Sending slack message');
             const slackResponse = await postToSlack(slackWebHook, messageBody);
-            console.log('Message response', slackResponse);
+            console.log('Slack Message response', slackResponse);
             return callback(null, JSON.stringify(returnLambdaMessage));
 
         } catch (e) {
             console.error('There was a error with the request', e);
             console.error('GET request failed, error:', e.message);
+            const slackResponse = await postToSlack(slackWebHook, messageBodyError);
+            console.log('Slack Message response', slackResponse);
             return callback(null, JSON.stringify(returnLambdaMessage));
         }
     }

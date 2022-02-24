@@ -129,3 +129,8 @@ variable "lambdaFunctionsEnvironmets" {
   description = "List of Lambda names for different backup script to call"
   type        = list(string)
 }
+
+variable "read_only_billing_policy" {
+  description = "Policy to view dashboard metrics for Grafana"
+  type        = string
+}

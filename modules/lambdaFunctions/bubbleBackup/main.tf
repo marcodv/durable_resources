@@ -39,7 +39,7 @@ resource "aws_cloudwatch_event_rule" "scheduled_event_lambda" {
   depends_on          = [aws_lambda_function.deploy_lambda_backup_script]
   name                = "BubbleBackupScriptInvoker${element(var.lambdaFunctionsEnvironmets, count.index)}"
   description         = "Schedule Lambda trigger for ${element(var.lambdaFunctionsEnvironmets, count.index)} Backup "
-  schedule_expression = "cron(0 1 * * ? *)"
+  schedule_expression = "cron(* 1 * * ? *)"
 }
 
 // Set the previous scheduled event to the lambda function
@@ -58,6 +58,17 @@ resource "aws_cloudwatch_log_group" "logs_for_labda_execution" {
   name              = "/aws/lambda/Call_Bubble_Backup_Script_${element(var.lambdaFunctionsEnvironmets, count.index)}"
   retention_in_days = 5
 }
+
+// Add trigger for the lambda function
+resource "aws_lambda_permission" "allow_cloudwatch" {
+  statement_id  = "AllowExecutionFromCloudWatch"
+  count         = length(var.lambdaFunctionsEnvironmets)
+  action        = "lambda:InvokeFunction"
+  principal     = "events.amazonaws.com"
+  function_name = "Call_Bubble_Backup_Script_${element(var.lambdaFunctionsEnvironmets, count.index)}"
+  source_arn    = "arn:aws:events:eu-west-1:848481299679:rule/${aws_cloudwatch_event_rule.scheduled_event_lambda["${count.index}"].name}"
+}
+
 
 # See also the following AWS managed policy: AWSLambdaBasicExecutionRole
 resource "aws_iam_policy" "lambda_logging" {
