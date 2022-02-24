@@ -22,9 +22,11 @@ nav:
             - developmentUsers: 'developmentUsers.md'
             - terraformUsers: 'terraformUsers.md'
             - cnamesMgmtUser: 'cnamesMgmtUser.md'
+            - grafanaUser: 'grafanaUser.md'
         - Roles:
             - workerNode: 'eksWorkerNodeRole.md'
             - clusterEKS: 'eksClusterRole.md'
             - lambdaRole: 'lambdaRole.md'
+            - grafanaRole: 'grafanaRoleCloudWatch.md'
         - LambdaFunctions:
             - bubbleBackup: 'bubbleBackup.md'

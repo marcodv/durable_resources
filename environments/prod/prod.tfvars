@@ -144,3 +144,9 @@ lambdaFunctionsEnvironmets = ["UAT", "test", "production"]
 
 // policy to assign the read only view for grafana
 read_only_billing_policy = "awsBillingPolicyprodEnv"
+
+// Grafana role name
+grafana_role = "grafanaRoledprodnv"
+
+// Grafana user name
+grafana_user = "grafanaUserprodEnv"
