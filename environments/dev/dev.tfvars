@@ -80,4 +80,5 @@ read_only_billing_policy = "awsBillingPolicydevEnv"
 // Grafana role name
 grafana_role = "grafanaRoledevEnv"
 
+// Grafana user name
 grafana_user = "grafanaUserdevEnv"
