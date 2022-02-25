@@ -11,7 +11,7 @@
                 "route53:ListResourceRecordSets",
                 "route53:GetChange"
             ],
-            "Resource": "arn:aws:route53:::hostedzone/Z01304463KRQDVTLL27OH"
+            "Resource": "arn:aws:route53:::hostedzone/*"
         }
     ]
 }
