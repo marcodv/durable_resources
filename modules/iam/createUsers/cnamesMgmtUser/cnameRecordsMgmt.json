@@ -5,9 +5,10 @@
             "Sid" : "AllowPublicHostedZonePermissions",
             "Effect": "Allow",
             "Action": [
-                "route53:CreateHostedZone"
+                "route53:CreateHostedZone",
+                "route53:GetHostedZone"
             ],
-            "Resource": "arn:aws:route53:::hostedzone/*"
+            "Resource": "arn:aws:route53:::hostedzone/Z01304463KRQDVTLL27OH"
         }
     ]
 }
