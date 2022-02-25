@@ -39,7 +39,7 @@ resource "aws_cloudwatch_event_rule" "scheduled_event_lambda" {
   depends_on          = [aws_lambda_function.deploy_lambda_backup_script]
   name                = "BubbleBackupScriptInvoker${element(var.lambdaFunctionsEnvironmets, count.index)}"
   description         = "Schedule Lambda trigger for ${element(var.lambdaFunctionsEnvironmets, count.index)} Backup "
-  schedule_expression = "cron(* 1 * * ? *)"
+  schedule_expression = "cron(0 1 * * ? *)"
 }
 
 // Set the previous scheduled event to the lambda function
