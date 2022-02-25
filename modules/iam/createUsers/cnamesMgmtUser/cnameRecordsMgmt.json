@@ -2,7 +2,7 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid" : "AllowPublicHostedZonePermissions",
+            "Sid": "AllowPublicHostedZonePermissions",
             "Effect": "Allow",
             "Action": [
                 "route53:CreateHostedZone",
@@ -11,7 +11,10 @@
                 "route53:ListResourceRecordSets",
                 "route53:GetChange"
             ],
-            "Resource": "arn:aws:route53:::hostedzone/*"
+            "Resource": [
+                "arn:aws:route53:::hostedzone/Z01304463KRQDVTLL27OH",
+                "arn:aws:route53:::change/*"
+            ]
         }
     ]
 }
