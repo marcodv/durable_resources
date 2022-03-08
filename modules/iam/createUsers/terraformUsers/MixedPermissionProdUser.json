@@ -48,7 +48,8 @@
                 "logs:DeleteResourcePolicy",
                 "logs:CreateLogStream",
                 "secretsmanager:DescribeSecret",
-                "secretsmanager:GetResourcePolicy"
+                "secretsmanager:GetResourcePolicy",
+                "secretsmanager:GetSecretValue"
             ],
             "Effect": "Allow",
             "Resource": "*"
