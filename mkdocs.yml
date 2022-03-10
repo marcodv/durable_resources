@@ -30,3 +30,4 @@ nav:
             - grafanaRole: 'grafanaRoleCloudWatch.md'
         - LambdaFunctions:
             - bubbleBackup: 'bubbleBackup.md'
+            - deleteBubbleBackup: 'bubbleDeleteOldBackup.md'

@@ -33,6 +33,7 @@ No providers.
 | <a name="module_createBubbleBackupRole"></a> [createBubbleBackupRole](#module\_createBubbleBackupRole) | ../../modules/iam/createRoles/lambdaRole | n/a |
 | <a name="module_createClusterMgmtGroup"></a> [createClusterMgmtGroup](#module\_createClusterMgmtGroup) | ../../modules/iam/createGroups | n/a |
 | <a name="module_createClusterRoles"></a> [createClusterRoles](#module\_createClusterRoles) | ../../modules/iam/createRoles/eksClusterRole | n/a |
+| <a name="module_createDeleteBubbleBackupLambda"></a> [createDeleteBubbleBackupLambda](#module\_createDeleteBubbleBackupLambda) | ../../modules/lambdaFunctions/bubbleDeleteOldBackup | n/a |
 | <a name="module_createDjangoBuckets"></a> [createDjangoBuckets](#module\_createDjangoBuckets) | ../../modules/S3Buckets/djangoBuckets | n/a |
 | <a name="module_createGrafanaRole"></a> [createGrafanaRole](#module\_createGrafanaRole) | ../../modules/iam/createRoles/grafanaRoleCloudWatch | n/a |
 | <a name="module_createGrafanaUser"></a> [createGrafanaUser](#module\_createGrafanaUser) | ../../modules/iam/createUsers/grafanaUser | n/a |
@@ -68,6 +69,7 @@ No resources.
 | <a name="input_iam_user_name"></a> [iam\_user\_name](#input\_iam\_user\_name) | Name of the IAM user | `string` | n/a | yes |
 | <a name="input_lambdaFunctionsEnvironmets"></a> [lambdaFunctionsEnvironmets](#input\_lambdaFunctionsEnvironmets) | List of Lambda names for different backup script to call | `list(string)` | n/a | yes |
 | <a name="input_lambda_role_bubble_backup"></a> [lambda\_role\_bubble\_backup](#input\_lambda\_role\_bubble\_backup) | Role name for lambda function to call teh Bubble backup script | `string` | n/a | yes |
+| <a name="input_lambda_role_delete_bubble_backup"></a> [lambda\_role\_delete\_bubble\_backup](#input\_lambda\_role\_delete\_bubble\_backup) | Role name for lambda function to call the Bubble backup deletion script | `string` | n/a | yes |
 | <a name="input_manage_hosted_zone_policy"></a> [manage\_hosted\_zone\_policy](#input\_manage\_hosted\_zone\_policy) | Policy to manage hosted zone | `string` | n/a | yes |
 | <a name="input_read_only_billing_policy"></a> [read\_only\_billing\_policy](#input\_read\_only\_billing\_policy) | Policy to view dashboard metrics for Grafana | `string` | n/a | yes |
 | <a name="input_terraform_user_access_backend_list_policies"></a> [terraform\_user\_access\_backend\_list\_policies](#input\_terraform\_user\_access\_backend\_list\_policies) | List of CUSTOM policies for access to tf state backend | <pre>list(object({<br>    name        = string<br>    path        = string<br>    description = string<br>  }))</pre> | n/a | yes |
