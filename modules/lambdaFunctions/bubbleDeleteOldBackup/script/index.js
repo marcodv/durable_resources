@@ -116,7 +116,7 @@ exports.handler = async (event, context, callback) => {
             };
             const slackResponse = await postToSlack(slackWebHook, messageBody);
             console.log(messageBody)
-            //console.log('Slack Message response', slackResponse);
+            console.log('Slack Message response', slackResponse);
             return callback(null, JSON.stringify(tmpMessage));
 
         } catch (e) {
