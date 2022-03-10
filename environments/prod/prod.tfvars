@@ -150,9 +150,6 @@ grafana_role = "grafanaRoledprodEnv"
 
 // Grafana user name
 grafana_user = "grafanaUserprodEnv"
-<<<<<<< HEAD
-=======
 
 // Role name for Lambda function in order to call the Bubble backups deletion script
 lambda_role_delete_bubble_backup = "lambdaRoleDeleteBubbleBackup"
->>>>>>> develop
