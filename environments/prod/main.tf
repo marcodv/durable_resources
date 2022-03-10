@@ -104,16 +104,18 @@ module "createMgmtLandingPageUser" {
 module "createBubbleBackupRole" {
   source = "../../modules/iam/createRoles/lambdaRole"
 
-  environment               = var.environment
-  lambda_role_bubble_backup = var.lambda_role_bubble_backup
+  environment                      = var.environment
+  lambda_role_bubble_backup        = var.lambda_role_bubble_backup
+  lambda_role_delete_bubble_backup = var.lambda_role_delete_bubble_backup
+
 }
 
 // Create Lambda function to call Bubble backup script
 module "createBubbleBackupLambda" {
   source = "../../modules/lambdaFunctions/bubbleBackup"
 
-  environment               = var.environment
-  lambda_role_bubble_backup = var.lambda_role_bubble_backup
+  environment                = var.environment
+  lambda_role_bubble_backup  = var.lambda_role_bubble_backup
   lambdaFunctionsEnvironmets = var.lambdaFunctionsEnvironmets
 }
 
@@ -133,4 +135,11 @@ module "createGrafanaUser" {
   environment              = var.environment
   grafana_user             = var.grafana_user
   read_only_billing_policy = var.read_only_billing_policy
+}
+
+// Create Lambda function to call Bubble backup deletion script
+module "createDeleteBubbleBackupLambda" {
+  source = "../../modules/lambdaFunctions/bubbleDeleteOldBackup"
+
+  lambda_role_delete_bubble_backup = var.lambda_role_delete_bubble_backup
 }

@@ -10,6 +10,7 @@ Each role have managed and custom policies
 These are the roles created
 
 - lambdaRoleBubbleBackupprodEnv
+- lambdaRoleDeleteBubbleBackup
 
 ## Requirements
 
@@ -30,6 +31,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [aws_iam_role.iam_role_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.iam_role_lambda_delete_backup](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 
 ## Inputs
 
@@ -37,6 +39,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment to deploy | `string` | n/a | yes |
 | <a name="input_lambda_role_bubble_backup"></a> [lambda\_role\_bubble\_backup](#input\_lambda\_role\_bubble\_backup) | Role name for lambda function to call teh Bubble backup script | `string` | n/a | yes |
+| <a name="input_lambda_role_delete_bubble_backup"></a> [lambda\_role\_delete\_bubble\_backup](#input\_lambda\_role\_delete\_bubble\_backup) | Role name for lambda function to call Bubble backup deletion script | `string` | n/a | yes |
 
 ## Outputs
 

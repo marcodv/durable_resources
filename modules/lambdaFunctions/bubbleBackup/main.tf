@@ -31,6 +31,15 @@ resource "aws_lambda_function" "deploy_lambda_backup_script" {
   source_code_hash = data.archive_file.lambda_zip["${count.index}"].output_base64sha256
   runtime          = "nodejs14.x"
   timeout          = 45
+
+  lifecycle {
+    ignore_changes = [
+      filename,
+      last_modified,
+      qualified_arn,
+      version,
+    ]
+  }
 }
 
 // Create a cloudwatch event rule for lambda function
