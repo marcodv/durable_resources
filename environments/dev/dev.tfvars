@@ -73,3 +73,12 @@ eks_cluster_role_policies = [
 iam_user_name = "Terraform_User_Dev_Env"
 
 aws_managed_policies_list = ["ElasticLoadBalancingFullAccess", "AmazonVPCFullAccess"]
+
+// policy to assign the read only view for grafana
+read_only_billing_policy = "awsBillingPolicydevEnv"
+
+// Grafana user name
+grafana_user = "grafanaUserdevEnv"
+
+// Grafana role name
+grafana_role = "grafanaRoleddevEnv"
