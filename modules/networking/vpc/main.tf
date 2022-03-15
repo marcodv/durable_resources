@@ -1,0 +1,106 @@
+/* Create main VPC */
+resource "aws_vpc" "vpc" {
+  cidr_block           = var.vpc_cidr_block
+  instance_tenancy     = "default"
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  tags = {
+    Name = "vpc-durable-prod-rds"
+  }
+}
+
+/* Routing table for private subnet */
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.vpc.id
+  count  = length(var.db_private_subnets_cidr)
+
+  tags = {
+    Name = "route-table-PROD-POSTGRES-${element(var.availability_zones, count.index)}"
+  }
+}
+
+/* DB Subnets */
+resource "aws_subnet" "db_subnets" {
+  vpc_id                  = aws_vpc.vpc.id
+  count                   = length(var.db_private_subnets_cidr)
+  cidr_block              = element(var.db_private_subnets_cidr, count.index)
+  availability_zone       = element(var.availability_zones, count.index)
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "db-subnet-PROD-POSTGRES-${element(var.availability_zones, count.index)}"
+  }
+}
+
+resource "aws_route_table_association" "private" {
+  count          = length(var.db_private_subnets_cidr)
+  subnet_id      = element(aws_subnet.db_subnets.*.id, count.index)
+  route_table_id = element(aws_route_table.private.*.id, count.index)
+}
+
+/*==== RDS Security Group ======*/
+resource "aws_security_group" "db_sg" {
+  name        = "db-sg-prod-environment"
+  description = "DB sg to allow inbound/outbound"
+  vpc_id      = aws_vpc.vpc.id
+  depends_on  = [aws_vpc.vpc]
+
+  // Block to create ingress rules
+  dynamic "ingress" {
+    iterator = port
+    for_each = var.sg_db_rule
+
+    content {
+      description = "Port ${port.value} rule"
+      from_port   = port.value
+      to_port     = port.value
+      protocol    = "tcp"
+      // Allow connection only FROM private subnets
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+
+  // Without this section no incoming connection from VPC
+  egress {
+    description = "Allow ALL Protocols outboud"
+    from_port   = "0"
+    to_port     = "0"
+    protocol    = "-1"
+    self        = true
+    // Allow outbound only TO private subnets
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "SG DB for prod environment"
+  }
+}
+
+resource "aws_vpc_peering_connection" "prod_to_dev" {
+  peer_vpc_id = aws_vpc.vpc.id
+  vpc_id      = "vpc-0d2424eb2750fdd8d"
+  auto_accept = true
+
+  accepter {
+    allow_remote_vpc_dns_resolution = true
+  }
+
+  requester {
+    allow_remote_vpc_dns_resolution = true
+  }
+}
+
+resource "aws_route" "prod_to_dev" {
+  count          = length(var.db_private_subnets_cidr)
+  route_table_id            = element(aws_route_table.private.*.id, count.index)
+  destination_cidr_block    = "30.0.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.prod_to_dev.id
+}
+
+resource "aws_route" "prod_to_prod" {
+  count          = length(var.db_private_subnets_cidr)
+  route_table_id            = element(aws_route_table.private.*.id, count.index)
+  destination_cidr_block    = "20.0.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.prod_to_dev.id
+}

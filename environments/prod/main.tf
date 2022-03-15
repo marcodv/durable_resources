@@ -143,3 +143,19 @@ module "createDeleteBubbleBackupLambda" {
 
   lambda_role_delete_bubble_backup = var.lambda_role_delete_bubble_backup
 }
+
+// Create VPC where to create PROD Postgres
+module "createVPC" {
+  source = "../../modules/networking/vpc"
+
+  vpc_cidr_block          = var.vpc_cidr_block
+  acl_db_rule             = var.acl_db_rule
+  db_private_subnets_cidr = var.db_private_subnets_cidr
+  sg_db_rule              = var.sg_db_rule
+  availability_zones      = var.availability_zones
+}
+
+// Create Postgres for Prod 
+/*module "db" {
+  source = "../../modules/db/rdsPostgres"
+} */
