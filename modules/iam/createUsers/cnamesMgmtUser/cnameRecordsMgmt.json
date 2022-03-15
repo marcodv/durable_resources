@@ -12,7 +12,7 @@
                 "route53:GetChange"
             ],
             "Resource": [
-                "arn:aws:route53:::hostedzone/Z01432692YENOFU1EN1BH",
+                "arn:aws:route53:::hostedzone/Z01304463KRQDVTLL27OH",
                 "arn:aws:route53:::change/*"
             ]
         }
