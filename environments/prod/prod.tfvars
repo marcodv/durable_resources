@@ -153,3 +153,27 @@ grafana_user = "grafanaUserprodEnv"
 
 // Role name for Lambda function in order to call the Bubble backups deletion script
 lambda_role_delete_bubble_backup = "lambdaRoleDeleteBubbleBackup"
+
+// ==== THESE SETTING ARE FOR PROD VPC WHERE SETUP POSTGRES ====
+// vpc cidr block
+vpc_cidr_block = "10.0.0.0/16"
+
+// inbound accl rule
+acl_db_rule = {
+  ingress_rule = [{
+    rule_no   = 100
+    from_port = 5432
+    to_port   = 5432
+  }]
+}
+
+// db subnets cidr
+db_private_subnets_cidr  = ["10.0.96.0/20", "10.0.112.0/20"]
+
+// security group port
+sg_db_rule = [5432]
+
+// az for vpc
+availability_zones = ["eu-west-1a", "eu-west-1b"]
+
+// ==== END SETTING FOR VPC ====
