@@ -35,3 +35,5 @@ nav:
             - postgres: 'rdsPostgres.md'
         - Networking:
             - vpc: 'vpc.md'
+        - Elasticache:
+            - redis: 'elasticache.md'
