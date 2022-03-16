@@ -12,6 +12,7 @@
  * - Terraform users
  * - Cluster role 
  * - Worker node role
+ * - Grafana user and role
 */
 
 terraform {

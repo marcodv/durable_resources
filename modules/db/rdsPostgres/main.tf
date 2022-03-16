@@ -1,3 +1,23 @@
+/* 
+ * This module is used to deploy a SINGLE Postgres DB version 13 in one of the 2 Private AZ.
+ *
+ * Also created a parameter group which defined the parameters that
+ * we need to update or change 
+ * 
+ * The DB creation depend from the db parameters group and also the private subnets.
+ *
+ * DB passwd and username are stored in [AWS secret management](http://eu-west-1.console.aws.amazon.com/secretsmanager/home?region=eu-west-1) 
+ *
+ * DB credentials are passed to Terraform at pipeline execution time 
+ *
+ * The DB created have these configurations:
+ *
+ * - 10GB of storage 
+ * - Tagged by AZ and environment
+ * - Port open: 5432
+ *
+*/
+
 /* DB parameter group*/
 resource "aws_db_parameter_group" "pg_db" {
   name   = "parameters-group-postgres-${var.environment}-env"

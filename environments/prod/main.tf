@@ -15,6 +15,10 @@
  * - Cluster Group management users
  * - Django apps IAM accounts
  * - S3 public and private bucket to be used by IAM accounts
+ * - Prod Postgres DB
+ * - VPC where setup prod db 
+ * - VPC peering between vpcs
+ * 
 */
 
 terraform {
@@ -156,6 +160,11 @@ module "createVPC" {
 }
 
 // Create Postgres for Prod 
-/*module "db" {
+module "db" {
   source = "../../modules/db/rdsPostgres"
-} */
+
+  environment        = var.environment
+  availability_zones = var.availability_zones
+  db_subnet_ids      = module.createVPC.db_private_subnets_id
+  db_sg              = module.createVPC.db_sg
+}
