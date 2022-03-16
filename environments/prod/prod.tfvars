@@ -164,16 +164,31 @@ acl_db_rule = {
     rule_no   = 100
     from_port = 5432
     to_port   = 5432
-  }]
+  },
+  {
+    rule_no   = 101
+    from_port = 6379
+    to_port   = 6379
+  }
+  ]
 }
 
 // db subnets cidr
 db_private_subnets_cidr  = ["10.0.96.0/20", "10.0.112.0/20"]
 
 // security group port
-sg_db_rule = [5432]
+sg_db_rule = [5432, 6379]
 
 // az for vpc
 availability_zones = ["eu-west-1a", "eu-west-1b"]
-
 // ==== END SETTING FOR VPC ====
+
+// ===== Elasticache Settings ====
+elasticache_setting = {
+  engine          = "redis"
+  node_type       = "cache.t3.micro"
+  num_cache_nodes = 1
+  engine_version  = "6.x"
+  family          = "redis6.x"
+  port            = 6379
+}
