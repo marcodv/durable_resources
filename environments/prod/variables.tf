@@ -152,7 +152,7 @@ variable "lambda_role_delete_bubble_backup" {
 
 variable "vpc_cidr_block" {
   description = "VPC Cidr Block"
-  type = string
+  type        = string
 }
 
 variable "acl_db_rule" {
@@ -192,4 +192,28 @@ variable "db_sg" {
   description = "DB Security group id"
   type        = string
   default     = ""
+}
+
+variable "elasticache_setting" {
+  description = "List for the Elastic Cache Redis based engine instance setting"
+  type = object({
+    engine          = string
+    node_type       = string
+    num_cache_nodes = number
+    port            = number
+    engine_version  = string
+    family          = string
+  })
+}
+
+variable "elasticache_subnets" {
+  description = "Subnets for Elasticache"
+  type        = string
+  default     = ""
+}
+
+variable "elasticache_sg_ids" {
+  description = "Security groups ids for Elasticache"
+  type        = list(string)
+  default     = [""]
 }

@@ -168,3 +168,13 @@ module "db" {
   db_subnet_ids      = module.createVPC.db_private_subnets_id
   db_sg              = module.createVPC.db_sg
 }
+
+module "elastic_cache" {
+  source     = "../../modules/redis/elasticache"
+  depends_on = [module.createVPC.vpc_id]
+
+  environment         = var.environment
+  elasticache_setting = var.elasticache_setting
+  elasticache_subnets   = element(module.createVPC.db_private_subnets_id, 0)
+  elasticache_sg_ids  = [module.createVPC.db_sg]
+}
