@@ -31,3 +31,7 @@ nav:
         - LambdaFunctions:
             - bubbleBackup: 'bubbleBackup.md'
             - deleteBubbleBackup: 'bubbleDeleteOldBackup.md'
+        - Database:
+            - postgres: 'rdsPostgres.md'
+        - Networking:
+            - vpc: 'vpc.md'

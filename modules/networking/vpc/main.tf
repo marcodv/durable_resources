@@ -1,3 +1,18 @@
+/* 
+ * This module is used to deploy a VPC that span across 2 AZ
+ *
+ * The only resource deployed in this VPC is Postgres DB
+ *
+ * The db will be access via vpc peering from others vpc
+ *
+ * This module will deploy a vpc structured in this way
+ * 
+ * - Private subnets for db
+ * - route table with vpc peering routes
+ * - ACL and SG definition 
+ *
+*/
+
 /* Create main VPC */
 resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr_block
