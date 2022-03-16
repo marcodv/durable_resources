@@ -11,6 +11,8 @@ This repo manage the creation of the following
 - IAM groups users
 - IAM roles
 - Lambda functions
+- RDS DB 
+- Elasticache instances
 
 
 

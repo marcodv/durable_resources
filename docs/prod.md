@@ -45,6 +45,7 @@ No providers.
 | <a name="module_createVPC"></a> [createVPC](#module\_createVPC) | ../../modules/networking/vpc | n/a |
 | <a name="module_createWorkerNodeRole"></a> [createWorkerNodeRole](#module\_createWorkerNodeRole) | ../../modules/iam/createRoles/eksWorkerNodeRole | n/a |
 | <a name="module_db"></a> [db](#module\_db) | ../../modules/db/rdsPostgres | n/a |
+| <a name="module_elastic_cache"></a> [elastic\_cache](#module\_elastic\_cache) | ../../modules/redis/elasticache | n/a |
 
 ## Resources
 
@@ -70,6 +71,9 @@ No resources.
 | <a name="input_django_public_buckets"></a> [django\_public\_buckets](#input\_django\_public\_buckets) | List of public buckets used by django app | `list(string)` | n/a | yes |
 | <a name="input_eks_cluster_management_list_policies"></a> [eks\_cluster\_management\_list\_policies](#input\_eks\_cluster\_management\_list\_policies) | List of the policies to associate to the cluster management group | <pre>list(object({<br>    name        = string<br>    path        = string<br>    description = string<br>  }))</pre> | n/a | yes |
 | <a name="input_eks_cluster_role_policies"></a> [eks\_cluster\_role\_policies](#input\_eks\_cluster\_role\_policies) | List of policies for cluster role | <pre>list(object({<br>    name        = string<br>    path        = string<br>    description = string<br>  }))</pre> | n/a | yes |
+| <a name="input_elasticache_setting"></a> [elasticache\_setting](#input\_elasticache\_setting) | List for the Elastic Cache Redis based engine instance setting | <pre>object({<br>    engine          = string<br>    node_type       = string<br>    num_cache_nodes = number<br>    port            = number<br>    engine_version  = string<br>    family          = string<br>  })</pre> | n/a | yes |
+| <a name="input_elasticache_sg_ids"></a> [elasticache\_sg\_ids](#input\_elasticache\_sg\_ids) | Security groups ids for Elasticache | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| <a name="input_elasticache_subnets"></a> [elasticache\_subnets](#input\_elasticache\_subnets) | Subnets for Elasticache | `string` | `""` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment where we want to deploy | `string` | n/a | yes |
 | <a name="input_grafana_role"></a> [grafana\_role](#input\_grafana\_role) | Grafana Role name | `string` | n/a | yes |
 | <a name="input_grafana_user"></a> [grafana\_user](#input\_grafana\_user) | Grafana User | `string` | n/a | yes |
