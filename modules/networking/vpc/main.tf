@@ -94,7 +94,7 @@ resource "aws_security_group" "db_sg" {
 
 resource "aws_vpc_peering_connection" "prod_to_dev" {
   peer_vpc_id = aws_vpc.vpc.id
-  vpc_id      = "vpc-0d2424eb2750fdd8d"
+  vpc_id      = "vpc-0f1899e392f4da029"
   auto_accept = true
 
   accepter {
@@ -104,18 +104,22 @@ resource "aws_vpc_peering_connection" "prod_to_dev" {
   requester {
     allow_remote_vpc_dns_resolution = true
   }
-}
-
-resource "aws_route" "prod_to_dev" {
-  count          = length(var.db_private_subnets_cidr)
-  route_table_id            = element(aws_route_table.private.*.id, count.index)
-  destination_cidr_block    = "30.0.0.0/16"
-  vpc_peering_connection_id = aws_vpc_peering_connection.prod_to_dev.id
+  tags = {
+    Name = "VPC peering prod-to-prod"
+  }
 }
 
 resource "aws_route" "prod_to_prod" {
-  count          = length(var.db_private_subnets_cidr)
+  count                     = length(var.db_private_subnets_cidr)
   route_table_id            = element(aws_route_table.private.*.id, count.index)
   destination_cidr_block    = "20.0.0.0/16"
   vpc_peering_connection_id = aws_vpc_peering_connection.prod_to_dev.id
 }
+
+/*
+resource "aws_route" "prod_to_dev" {
+  count                     = length(var.db_private_subnets_cidr)
+  route_table_id            = element(aws_route_table.private.*.id, count.index)
+  destination_cidr_block    = "30.0.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.prod_to_dev.id
+} */
