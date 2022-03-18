@@ -98,6 +98,9 @@ data "aws_vpc" "vpc_prod_infra" {
     name   = "tag:Name"
     values = ["vpc-prod-environment"]
   }
+  tags = {
+    Name = "VPC peering prod-to-prod"
+  }
 }
 
 // get vpc peering id 
