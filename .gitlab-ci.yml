@@ -8,7 +8,7 @@ include:
 
 # Stage availables for this pipeline
 stages:
-  - run-security-scan
+  - run-security-scan 
   - infrastructure_dev
   - infrastructure_prod
   - deploy_documentation
@@ -56,12 +56,11 @@ infrastructure_prod:
 
 # Deploy the Terraform Documentation to GitLab pages
 pages:
-  stage: documentation-deploy
+  stage: deploy_documentation
   extends: .deploy_pages
   script:
     - echo "Publishing Terraform documentations"
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - changes:
       - docs/* 
