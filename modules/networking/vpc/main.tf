@@ -92,17 +92,6 @@ resource "aws_security_group" "db_sg" {
   }
 }
 
-// get vpc id for vpc peering
-data "aws_vpc" "vpc_prod_infra" {
-  filter {
-    name   = "tag:Name"
-    values = ["vpc-prod-environment"]
-  }
-  tags = {
-    Name = "VPC peering prod-to-prod"
-  }
-}
-
 // get vpc peering id 
 // filtering by name and status
 data "aws_vpc_peering_connection" "peering_acceptance_prod" {
