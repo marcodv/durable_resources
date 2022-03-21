@@ -1,93 +1,160 @@
-# durable resources aws
+# AWS Durable
+
+## DESCRIPTION
+
+This project allow to create resources which need to be permanent, such as DB, Lambda function, S3 storages
 
 
+## Content
+This is the list of resources created by this project:
+- S3 
+- RDS DB Postgres
+- Elasticache Redis engine 
+- IAM accounts/groups/roles
+- Networking vpc
 
-## Getting started
+# Table of Contents
+1. [Pre-requisite](#prerequisite)
+2. [Run via laptop](#runlaptop)
+3. [VPC Peering](https://gitlab.com/noah-energy/infranoah/infra_aws/-/wikis/VPC-Peering-creation)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Pre-requisite
 
-## Add your files
+You can run this project via [pipeline](https://gitlab.com/noah-energy/infranoah/durable-resources-aws/-/pipelines) or via laptop. 
 
-- [ ] [Create](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+In case you want to run it by laptop, you need to use a specific [IAM user account](https://console.aws.amazon.com/iamv2/home#/users) which is thighed to prod or dev.
+
+A part for that you need to install [aws cli](https://aws.amazon.com/cli/) and configure it for use the prod or dev account.
+
+Once you got the **_aws_access_key_id_** and **_aws_secret_access_key_** you can set these values in your **~/.aws/credentials** like in the example below
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/noah-energy/infranoah/durable-resources-aws.git
-git branch -M main
-git push -uf origin main
+[environment_name]
+aws_access_key_id=*********TUI
+aws_secret_access_key=*********P7O
+region=eu-west-1
+output=json
 ```
 
-## Integrate with your tools
+or you can run aws configure which will ask for the credentials on command line
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://gitlab.com/noah-energy/infranoah/durable-resources-aws/-/settings/integrations)
+### IAM Users account for spin up prod or dev
 
-## Collaborate with your team
+The IAM users credentials are stored on our [bitwarden space](https://bitwarden.com/).
 
-- [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+The filename in bitwarden is called **users_account_aws** 
 
-## Test and Deploy
+To spin up infra in prod you need to use the credentials called **terraform_user_prod_env** .
 
-Use the built-in continuous integration in GitLab.
+To spin up infra in dev you need to use the credentials called **terraform_user_dev_env**
 
-- [ ] [Get started with GitLab CI/CD](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://gitlab.com/-/experiment/new_project_readme_content:f7a0942c5d3a7d65fade05510018481c?https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
-***
+## Run via laptop
 
-# Editing this README
+After you installed terraform and aws cli and also setup your credentials in the credentials file from aws cli, you're good to create your infra.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com) for this template.
+Clone the infra repo and go inside the dev or prod folder.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+The configuration assigned to all the resources are already there, so you don't need to change or modify anything. 
 
-## Name
-Choose a self-explaining name for your project.
+Just for your information, the values for all the resources for **dev env** are [here](https://gitlab.com/noah-energy/infranoah/durable-resources-aws/-/blob/main/environments/dev/dev.tfvars)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+The values for **prod env** are [here](https://gitlab.com/noah-energy/infranoah/durable-resources-aws/-/blob/main/environments/prod/prod.tfvars) 
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Finally in order to create we first need to initialise our workspace by running 
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+this command **terraform init** like in the example below
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```
+marcodivincenzo@Marcos-MacBook-Pro:[prod]:(main): terraform init
+Initializing modules...
+- jump_host in ../../modules/bastions
+- k8s in ../../modules/eks
+- networking in ../../modules/vpc
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Initializing the backend...
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Successfully configured the backend "s3"! Terraform will automatically
+use this backend unless the backend configuration changes.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Initializing provider plugins...
+- Finding latest version of hashicorp/aws...
+- Finding latest version of hashicorp/kubernetes...
+- Installing hashicorp/aws v3.74.0...
+- Installed hashicorp/aws v3.74.0 (signed by HashiCorp)
+- Installing hashicorp/kubernetes v2.7.1...
+- Installed hashicorp/kubernetes v2.7.1 (signed by HashiCorp)
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Terraform has been successfully initialized!
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
 
-## License
-For open source projects, say how it is licensed.
+After that we run `terraform plan` to have a detailed explanation about what is going to be created like in this example
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+```
+terraform plan -var-file=test.tfvars 
+...
+...
+Plan: 62 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_sg                = (known after apply)
+  + azs                   = [
+      + "eu-west-1a",
+      + "eu-west-1b",
+    ]
+  + bastions_sg           = (known after apply)
+  + db_sg                 = (known after apply)
+  + db_subnets_cidr       = [
+      + "20.0.96.0/20",
+      + "20.0.112.0/20",
+    ]
+  + eks_cluster_id        = (known after apply)
+  + eks_endpoint          = (known after apply)
+  + eks_sg                = (known after apply)
+  + eks_subnets           = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + private_subnets_cidr  = [
+      + "20.0.48.0/20",
+      + "20.0.64.0/20",
+    ]
+  + private_subnets_id    = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + public_subnets_cidr   = [
+      + "20.0.0.0/20",
+      + "20.0.16.0/20",
+    ]
+  + public_subnets_id     = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + vpc_cidr_block        = "20.0.0.0/16"
+  + vpc_id                = (known after apply)
+```
+
+Once you that you validated that everything is fine, you can run `terraform apply` like in this example. 
+
+
+````
+terraform apply -var-file=test.tfvars 
+````
+
+If you want to destroy everything, be sure to be in the same folder from where you created the infra. 
+
+To delete everything run this command 
+````
+terraform destroy -var-file=test.tfvars  -auto-approve
+````
+
 
