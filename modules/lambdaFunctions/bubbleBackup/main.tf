@@ -66,7 +66,7 @@ resource "aws_cloudwatch_event_target" "lambda" {
 }
 
 # This is to manage the CloudWatch Log Group for the Lambda Function.
-#tfsec:ignored:aws-cloudwatch-log-group-customer-key 
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "logs_for_labda_execution" {
   count             = length(var.lambdaFunctionsEnvironmets)
   name              = "/aws/lambda/Call_Bubble_Backup_Script_${element(var.lambdaFunctionsEnvironmets, count.index)}"
