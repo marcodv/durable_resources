@@ -72,7 +72,7 @@ resource "aws_security_group" "db_sg" {
       to_port     = port.value
       protocol    = "tcp"
       // Allow connection only FROM private subnets
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks = ["20.0.0.0/16", "10.0.0.0/16"]
     }
   }
 
