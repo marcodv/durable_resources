@@ -32,7 +32,10 @@ resource "aws_lambda_function" "deploy_lambda_script" {
       version,
     ]
   }
-
+  
+  tracing_config {
+    mode = "Active"
+  }
 }
 
 // Create a cloudwatch event rule for lambda function
@@ -53,6 +56,7 @@ resource "aws_cloudwatch_event_target" "lambda" {
 }
 
 # This is to manage the CloudWatch Log Group for the Lambda Function.
+#tfsec:ignore:aws-cloudwatch/log-group-customer-key 
 resource "aws_cloudwatch_log_group" "logs_for_lambda_execution" {
   name              = "/aws/lambda/Delete_Bubble_Backup_Script"
   retention_in_days = 5
