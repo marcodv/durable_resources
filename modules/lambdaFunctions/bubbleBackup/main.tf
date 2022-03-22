@@ -40,6 +40,10 @@ resource "aws_lambda_function" "deploy_lambda_backup_script" {
       version,
     ]
   }
+  
+  tracing_config {
+    mode = "Active"
+  }
 }
 
 // Create a cloudwatch event rule for lambda function
