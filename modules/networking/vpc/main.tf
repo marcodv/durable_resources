@@ -84,7 +84,7 @@ resource "aws_security_group" "db_sg" {
     protocol    = "-1"
     self        = true
     // Allow outbound only TO private subnets
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["20.0.0.0/16", "10.0.0.0/16"]
   }
 
   tags = {
