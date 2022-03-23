@@ -23,6 +23,12 @@ terraform {
 }
 
 // Create Django public bucket
+// add ignore tfsec for public access
+// this bucket is public and hence ignore the warning
+#tfsec:ignore:aws-s3-enable-bucket-logging
+#tfsec:ignore:aws-s3-no-public-access-with-acl
+#tfsec:ignore:aws-s3-enable-bucket-encryption
+#tfsec:ignore:aws-s3-specify-public-access-block 
 resource "aws_s3_bucket" "django_public_buckets" {
   count  = length(var.django_public_buckets)
   bucket = element(var.django_public_buckets, count.index)
@@ -43,6 +49,9 @@ resource "aws_s3_bucket_policy" "policy_django_public_bucket" {
 }
 
 // Create Django private buckets
+#tfsec:ignore:aws-s3-specify-public-access-block 
+#tfsec:ignore:aws-s3-enable-bucket-encryption
+#tfsec:ignore:aws-s3-enable-bucket-logging 
 resource "aws_s3_bucket" "django_private_buckets" {
   count  = length(var.django_private_buckets)
   bucket = element(var.django_private_buckets, count.index)

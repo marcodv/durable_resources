@@ -40,6 +40,10 @@ resource "aws_lambda_function" "deploy_lambda_backup_script" {
       version,
     ]
   }
+
+  tracing_config {
+    mode = "Active"
+  }
 }
 
 // Create a cloudwatch event rule for lambda function
@@ -62,6 +66,7 @@ resource "aws_cloudwatch_event_target" "lambda" {
 }
 
 # This is to manage the CloudWatch Log Group for the Lambda Function.
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "logs_for_labda_execution" {
   count             = length(var.lambdaFunctionsEnvironmets)
   name              = "/aws/lambda/Call_Bubble_Backup_Script_${element(var.lambdaFunctionsEnvironmets, count.index)}"
@@ -80,6 +85,7 @@ resource "aws_lambda_permission" "allow_cloudwatch" {
 
 
 # See also the following AWS managed policy: AWSLambdaBasicExecutionRole
+#tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_policy" "lambda_logging" {
   name        = "lambda_logging"
   path        = "/"
@@ -95,7 +101,11 @@ resource "aws_iam_policy" "lambda_logging" {
         "logs:CreateLogStream",
         "logs:PutLogEvents"
       ],
-      "Resource": "arn:aws:logs:*:*:*",
+      "Resource": [
+        "arn:aws:logs:eu-west-1:848481299679:log-group:/aws/lambda/Call_Bubble_Backup_Script_production:*",
+        "arn:aws:logs:eu-west-1:848481299679:log-group:/aws/lambda/Call_Bubble_Backup_Script_test:*",
+        "arn:aws:logs:eu-west-1:848481299679:log-group:/aws/lambda/Call_Bubble_Backup_Script_UAT:*"
+        ],
       "Effect": "Allow"
     }
   ]
