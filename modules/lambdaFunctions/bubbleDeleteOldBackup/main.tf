@@ -72,6 +72,7 @@ resource "aws_lambda_permission" "allow_cloudwatch" {
 }
 
 # See also the following AWS managed policy: AWSLambdaBasicExecutionRole
+#tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_policy" "lambda_logging" {
   name        = "lambda_logging_delete_backup"
   path        = "/"
