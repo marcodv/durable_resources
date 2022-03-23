@@ -58,6 +58,7 @@ data "aws_secretsmanager_secret_version" "current" {
 }
 
 /* DB single or master slave*/
+#tfsec:ignore:aws-rds-encrypt-instance-storage-data 
 resource "aws_db_instance" "db" {
   depends_on              = [aws_db_parameter_group.pg_db, aws_db_subnet_group.subnet_group_name]
   identifier              = "db-${var.environment}-environment"
