@@ -58,7 +58,7 @@ resource "aws_cloudwatch_event_target" "lambda" {
 # This is to manage the CloudWatch Log Group for the Lambda Function.
 #tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "logs_for_lambda_execution" {
-  name              = "/aws/lambda/Delete_Bubble_Backup_Script"
+  name              = "/aws/lambda/Bubble_Backup_Deletion_Script"
   retention_in_days = 5
 }
 
@@ -87,7 +87,7 @@ resource "aws_iam_policy" "lambda_logging" {
         "logs:CreateLogStream",
         "logs:PutLogEvents"
       ],
-      "Resource": "arn:aws:logs:*:*:*",
+      "Resource": "arn:aws:logs:eu-west-1:848481299679:log-group:/aws/lambda/Delete_Bubble_Backup_Script:*",
       "Effect": "Allow"
     }
   ]

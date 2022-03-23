@@ -82,5 +82,5 @@ resource "aws_db_instance" "db" {
 
 resource "aws_db_snapshot" "db_snapshot" {
   db_instance_identifier = aws_db_instance.db.id
-  db_snapshot_identifier = "snapshotProd"
+  db_snapshot_identifier = "snapshotprod"
 }

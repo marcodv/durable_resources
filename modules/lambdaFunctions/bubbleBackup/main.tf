@@ -100,7 +100,11 @@ resource "aws_iam_policy" "lambda_logging" {
         "logs:CreateLogStream",
         "logs:PutLogEvents"
       ],
-      "Resource": "arn:aws:logs:*:*:*",
+      "Resource": [
+        "arn:aws:logs:eu-west-1:848481299679:log-group:/aws/lambda/Call_Bubble_Backup_Script_production:*",
+        "arn:aws:logs:eu-west-1:848481299679:log-group:/aws/lambda/Call_Bubble_Backup_Script_test:*",
+        "arn:aws:logs:eu-west-1:848481299679:log-group:/aws/lambda/Call_Bubble_Backup_Script_UAT:*"
+        ],
       "Effect": "Allow"
     }
   ]
