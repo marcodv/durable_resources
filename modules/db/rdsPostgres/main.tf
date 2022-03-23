@@ -59,22 +59,28 @@ data "aws_secretsmanager_secret_version" "current" {
 
 /* DB single or master slave*/
 resource "aws_db_instance" "db" {
-  depends_on             = [aws_db_parameter_group.pg_db, aws_db_subnet_group.subnet_group_name]
-  identifier             = "db-${var.environment}-environment"
-  allocated_storage      = 10
-  engine                 = "postgres"
-  engine_version         = "13.3"
-  instance_class         = "db.t4g.micro"
-  username               = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["username"]
-  password               = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["password"]
-  parameter_group_name   = aws_db_parameter_group.pg_db.name
-  skip_final_snapshot    = true
-  port                   = 5432
-  availability_zone      = var.availability_zones[0]
-  db_subnet_group_name   = aws_db_subnet_group.subnet_group_name.name
-  vpc_security_group_ids = [var.db_sg]
+  depends_on              = [aws_db_parameter_group.pg_db, aws_db_subnet_group.subnet_group_name]
+  identifier              = "db-${var.environment}-environment"
+  allocated_storage       = 10
+  engine                  = "postgres"
+  engine_version          = "13.3"
+  instance_class          = "db.t4g.micro"
+  username                = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["username"]
+  password                = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["password"]
+  parameter_group_name    = aws_db_parameter_group.pg_db.name
+  skip_final_snapshot     = true
+  port                    = 5432
+  availability_zone       = var.availability_zones[0]
+  db_subnet_group_name    = aws_db_subnet_group.subnet_group_name.name
+  vpc_security_group_ids  = [var.db_sg]
+  backup_retention_period = 7
 
   tags = {
     Name = "db-${var.environment}-environment"
   }
+}
+
+resource "aws_db_snapshot" "db_snapshot" {
+  db_instance_identifier = aws_db_instance.db.id
+  db_snapshot_identifier = "snapshotProd"
 }
