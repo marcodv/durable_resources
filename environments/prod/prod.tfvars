@@ -98,7 +98,7 @@ iam_user_name = "Terraform_User_Prod_Env"
 
 aws_managed_policies_list = ["ElasticLoadBalancingFullAccess", "AmazonVPCFullAccess"]
 
-cluster_users_mgmt = ["Terraform_User_Prod_Env", "Terraform_User_Dev_Env", "bastiaan@noah.energy", "marco@noah.energy"]
+cluster_users_mgmt = ["bastiaan@noah.energy", "marco@noah.energy"]
 
 attach_user_to_group = ["EKSClusterManagement"]
 
@@ -192,3 +192,6 @@ elasticache_setting = {
   family          = "redis6.x"
   port            = 6379
 }
+
+// Cluster Policy list for terraform user
+tf_user_cluster_policies_mgmt = ["adminCluster", "describeCluster", "updateCluster", "viewNodeWorkload"]

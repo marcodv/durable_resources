@@ -5,7 +5,7 @@ variable "environment" {
 
 variable "iam_user_name" {
   description = "Name of the IAM user"
-  type = string
+  type        = string
 }
 
 variable "terraform_user_access_backend_list_policies" {
@@ -19,5 +19,10 @@ variable "terraform_user_access_backend_list_policies" {
 
 variable "aws_managed_policies_list" {
   description = "List of AWS Managed policies to attach to user"
-  type = list(string)
+  type        = list(string)
+}
+
+variable "tf_user_cluster_policies_mgmt" {
+  description = "List of values for cluster policies"
+  type        = list(string)
 }

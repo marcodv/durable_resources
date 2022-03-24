@@ -217,3 +217,8 @@ variable "elasticache_sg_ids" {
   type        = list(string)
   default     = [""]
 }
+
+variable "tf_user_cluster_policies_mgmt" {
+  description = "List of values for cluster policies"
+  type        = list(string)
+}
