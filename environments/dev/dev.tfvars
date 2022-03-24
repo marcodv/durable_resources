@@ -82,3 +82,6 @@ grafana_user = "grafanaUserdevEnv"
 
 // Grafana role name
 grafana_role = "grafanaRoleddevEnv"
+
+// Cluster Policy list for terraform user
+tf_user_cluster_policies_mgmt = ["adminCluster", "describeCluster", "updateCluster", "viewNodeWorkload"]

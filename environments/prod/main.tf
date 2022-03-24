@@ -48,6 +48,8 @@ module "createUsers" {
   iam_user_name                               = var.iam_user_name
   terraform_user_access_backend_list_policies = var.terraform_user_access_backend_list_policies
   aws_managed_policies_list                   = var.aws_managed_policies_list
+  tf_user_cluster_policies_mgmt               = var.tf_user_cluster_policies_mgmt
+
 }
 
 // Create cluster roles
@@ -175,6 +177,6 @@ module "elastic_cache" {
 
   environment         = var.environment
   elasticache_setting = var.elasticache_setting
-  elasticache_subnets   = element(module.createVPC.db_private_subnets_id, 0)
+  elasticache_subnets = element(module.createVPC.db_private_subnets_id, 0)
   elasticache_sg_ids  = [module.createVPC.db_sg]
 }

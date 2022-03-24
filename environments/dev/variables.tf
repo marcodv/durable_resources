@@ -87,3 +87,8 @@ variable "grafana_role" {
   description = "Grafana Role name"
   type        = string
 }
+
+variable "tf_user_cluster_policies_mgmt" {
+  description = "List of values for cluster policies"
+  type        = list(string)
+}
