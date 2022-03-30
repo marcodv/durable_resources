@@ -81,7 +81,7 @@ exports.handler = async (event, context, callback) => {
     // options for App Script
     var options = {
         hostname: 'script.google.com',
-        path: '/macros/s/AKfycbzmOMLsT1XM7PfYlu_0WKQMFZXO6gMkuejbBTtFKsysa9x0Ea7h3_SxblDBbMK__X_P6g/exec?name=rotate',
+        path: '/macros/s/AKfycbyZZaT2Y_L5fIxi9UrmMYRjvIuMQofGI1kcGvn8C7we3Nx-rW2-VwzJKQkl6B3NJ95tlA/exec?name=rotate',
         method: 'GET',
         port: 443,
         followAllRedirects: true,
