@@ -64,7 +64,7 @@ resource "aws_db_instance" "db" {
   identifier                  = "db-${var.environment}-environment"
   allocated_storage           = 10
   engine                      = "postgres"
-  engine_version              = "13.3"
+  engine_version              = "13.4"
   instance_class              = "db.t4g.micro"
   username                    = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["username"]
   password                    = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["password"]
