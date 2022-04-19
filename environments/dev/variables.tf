@@ -197,3 +197,15 @@ variable "db_private_subnets_cidr" {
   default     = []
 }
 /* End Networking Section*/
+
+// Create gitlab users
+variable "gitlab_user" {
+  description = "GitLab username"
+  type        = string
+}
+
+// Define S3 policy name for GitLab 
+variable "gitlab_bucket_name" {
+  description = "Gitlab bucket name where to store pipeline logs"
+  type        = string
+}

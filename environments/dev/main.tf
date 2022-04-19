@@ -106,3 +106,20 @@ module "networking" {
   bastions-ami                   = var.bastions-ami
   db_private_subnets_cidr        = var.db_private_subnets_cidr
 }
+
+// Create GitLab S3 bucket
+module "createBuckets" {
+  source = "../../modules/S3Buckets/gitlabRunnerLogsBuckets"
+
+  environment        = var.environment
+  gitlab_bucket_name = var.gitlab_bucket_name
+}
+
+// Create GitLab User 
+module "createGitLabUser" {
+  source = "../../modules/iam/createUsers/gitlabRunnerUsers"
+
+  environment        = var.environment
+  gitlab_user        = var.gitlab_user
+  gitlab_bucket_name = var.gitlab_bucket_name
+}

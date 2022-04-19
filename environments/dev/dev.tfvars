@@ -189,7 +189,6 @@ acl_private_subnet_rule = {
   }]
 }
 
-// inbound accl rule
 acl_db_rule = {
   ingress_rule = [{
     rule_no   = 100
@@ -205,3 +204,7 @@ acl_db_rule = {
 }
 
 /* End Networking section*/
+
+gitlab_user = "gitlabUserdevEnv"
+
+gitlab_bucket_name = "gitlab-pipeline-execution-logs-dev-env"
