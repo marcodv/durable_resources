@@ -84,3 +84,25 @@ module "createGrafanaUser" {
   grafana_user             = var.grafana_user
   read_only_billing_policy = var.read_only_billing_policy
 }
+
+// Create Networking schema 
+
+module "networking" {
+  source = "../../modules/networking/vpc/"
+
+  environment                    = var.environment
+  vpc_cidr_block                 = var.vpc_cidr_block
+  public_subnets_cidr            = var.public_subnets_cidr
+  private_subnets_cidr           = var.private_subnets_cidr
+  availability_zones             = var.availability_zones
+  alb_ingress_rule               = var.alb_ingress_rule
+  eks_ingress_rule               = var.eks_ingress_rule
+  bastion_ingress_rule           = var.bastion_ingress_rule
+  private_instances_ingress_rule = var.private_instances_ingress_rule
+  acl_public_subnet_rule         = var.acl_public_subnet_rule
+  acl_private_subnet_rule        = var.acl_private_subnet_rule
+  acl_db_rule                    = var.acl_db_rule
+  sg_db_rule                     = var.sg_db_rule
+  bastions-ami                   = var.bastions-ami
+  db_private_subnets_cidr        = var.db_private_subnets_cidr
+}
