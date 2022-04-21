@@ -106,3 +106,8 @@ variable "acl_private_subnet_rule" {
     }))
   })
 }
+
+variable "sg_gitlab_runners_rules" {
+  description = "List of open ports for inbound connections for GitLab runners"
+  type        = list(string)
+}

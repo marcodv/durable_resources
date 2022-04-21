@@ -98,6 +98,7 @@ eks_ingress_rule               = [22, 53, 80, 443]
 bastion_ingress_rule           = [22, 80, 443]
 private_instances_ingress_rule = [22, 53, 80, 443, 30080]
 sg_db_rule                     = [5432, 6379]
+sg_gitlab_runners_rules        = [22, 2376]
 acl_public_subnet_rule = {
   ingress_rule = [{
     rule_no   = 100
@@ -183,6 +184,11 @@ acl_private_subnet_rule = {
       to_port   = 443
     },
     {
+      rule_no   = 109
+      from_port = 2376
+      to_port   = 2376
+    },
+    {
       rule_no   = 200
       from_port = 1025
       to_port   = 65535
@@ -208,3 +214,5 @@ acl_db_rule = {
 gitlab_user = "gitlabUserdevEnv"
 
 gitlab_bucket_name = "gitlab-pipeline-execution-logs-dev-env"
+
+registration_token = "GR1348941icF4C3WCZjuDb2SH5cPW"

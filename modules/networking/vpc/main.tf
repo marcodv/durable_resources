@@ -21,7 +21,7 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
 
   tags = {
-    Name = "vpc-${var.environment}-enrivonment"
+    Name = "vpc-${var.environment}-environment"
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_vpc" "vpc" {
 resource "aws_internet_gateway" "ig" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "igw-${var.environment}-enrivonment"
+    Name = "igw-${var.environment}-environment"
   }
 }
 
@@ -347,6 +347,44 @@ resource "aws_security_group" "db_sg" {
 
   tags = {
     Name = "SG DB for prod environment"
+  }
+}
+
+/*==== GitLab Runners Security Group ======*/
+resource "aws_security_group" "gitlab_runners_sg" {
+  name        = "gitlab-runners-sg-${var.environment}-environment"
+  description = "GitLab Runners sg to allow inbound/outbound"
+  vpc_id      = aws_vpc.vpc.id
+  depends_on  = [aws_vpc.vpc]
+
+  // Block to create ingress rules
+  dynamic "ingress" {
+    iterator = port
+    for_each = var.sg_gitlab_runners_rules
+
+    content {
+      description = "Port ${port.value} rule"
+      from_port   = port.value
+      to_port     = port.value
+      protocol    = "tcp"
+      // Allow connection only FROM private subnets
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+
+  // Without this section no incoming connection from VPC
+  egress {
+    description = "Allow ALL Protocols outboud"
+    from_port   = "0"
+    to_port     = "0"
+    protocol    = "-1"
+    self        = true
+    // Allow outbound only TO private subnets
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "gitlab-runners-sg-${var.environment}-environment"
   }
 }
 

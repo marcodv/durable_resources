@@ -196,6 +196,11 @@ variable "db_private_subnets_cidr" {
   type        = list(string)
   default     = []
 }
+
+variable "sg_gitlab_runners_rules" {
+  description = "List of open ports for inbound connections for GitLab runners"
+  type        = list(string)
+}
 /* End Networking Section*/
 
 // Create gitlab users
@@ -208,4 +213,9 @@ variable "gitlab_user" {
 variable "gitlab_bucket_name" {
   description = "Gitlab bucket name where to store pipeline logs"
   type        = string
+}
+
+variable "registration_token" {
+  description = "Token generated from GitLab to register runners"
+  type = string
 }

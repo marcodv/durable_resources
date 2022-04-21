@@ -105,7 +105,9 @@ module "networking" {
   sg_db_rule                     = var.sg_db_rule
   bastions-ami                   = var.bastions-ami
   db_private_subnets_cidr        = var.db_private_subnets_cidr
+  sg_gitlab_runners_rules        = var.sg_gitlab_runners_rules
 }
+
 
 // Create GitLab S3 bucket
 module "createBuckets" {
@@ -123,3 +125,13 @@ module "createGitLabUser" {
   gitlab_user        = var.gitlab_user
   gitlab_bucket_name = var.gitlab_bucket_name
 }
+
+// Create GitLab Runners
+module "createGitlabRunners" {
+  source = "../../modules/gitlab/setupRunners"
+
+  environment        = var.environment
+  registration_token = var.registration_token
+  gitlab_bucket_name = var.gitlab_bucket_name
+}
+
