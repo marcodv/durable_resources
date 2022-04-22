@@ -87,6 +87,7 @@ module "createGrafanaUser" {
 
 // Create Networking schema 
 
+
 module "networking" {
   source = "../../modules/networking/vpc/"
 
@@ -128,6 +129,9 @@ module "createGitLabUser" {
 
 // Create GitLab Runners
 module "createGitlabRunners" {
+  depends_on = [
+    module.networking
+  ]
   source = "../../modules/gitlab/setupRunners"
 
   environment        = var.environment

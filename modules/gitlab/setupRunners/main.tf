@@ -65,6 +65,7 @@ module "gitlab-runner" {
     "tf-aws-gitlab-runner:instancelifecycle" = "spot:yes"
   }
 
+  /*
   gitlab_runner_registration_config = {
     registration_token = var.registration_token
     tag_list           = "${var.environment}-docker-runners , docker_spot_runner" // this tag used in CICD
@@ -72,7 +73,7 @@ module "gitlab-runner" {
     locked_to_project  = true
     run_untagged       = true
     maximum_timeout    = "100"
-  }
+  } */
 
   tags = {
     "tf-aws-gitlab-runner:example"           = "runner-default"
@@ -105,8 +106,8 @@ module "gitlab-runner" {
   enable_schedule       = true
   runners_machine_autoscaling = [
     {
-      periods      = ["\"* * 0-9,17-23 * * mon-fri *\"", "\"* * * * * sat,sun *\""]
-      idle_count   = 1
+      periods      = ["\"* * 0-10,17-23 * * mon-fri *\"", "\"* * * * * sat,sun *\""]
+      idle_count   = 5
       idle_time    = 60
       runner_token = var.registration_token
       gitlab_url   = "https://gitlab.com/"
@@ -121,6 +122,14 @@ module "gitlab-runner" {
     bucket = var.gitlab_bucket_name
     policy = ""
   }
+
+  // Register runners in a non interactive mode
+  userdata_post_install = join("", [
+    "sudo gitlab-runner register --non-interactive --url 'https://gitlab.com/' --registration-token ${var.registration_token}",
+    " --description 'runner-agent-test' --executor 'docker+machine' --docker-image 'docker:18.03.1-ce' --tag-list 'ec2-spot,durable-resources-aws' " ,
+    " --run-untagged 'true' --locked 'true'",
+    "&& /usr/bin/gitlab-runner verify" 
+  ])
 }
 
 resource "null_resource" "cancel_spot_requests" {
