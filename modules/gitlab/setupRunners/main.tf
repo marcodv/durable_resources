@@ -107,7 +107,7 @@ module "gitlab-runner" {
   runners_machine_autoscaling = [
     {
       periods      = ["\"* * 0-10,17-23 * * mon-fri *\"", "\"* * * * * sat,sun *\""]
-      idle_count   = 5
+      idle_count   = 0
       idle_time    = 60
       runner_token = var.registration_token
       gitlab_url   = "https://gitlab.com/"
@@ -126,8 +126,8 @@ module "gitlab-runner" {
   // Register runners in a non interactive mode
   userdata_post_install = join("", [
     "sudo gitlab-runner register --non-interactive --url 'https://gitlab.com/' --registration-token ${var.registration_token}",
-    " --description 'runner-agent-test' --executor 'docker+machine' --docker-image 'docker:18.03.1-ce' --tag-list 'ec2-spot,durable-resources-aws' " ,
-    " --run-untagged 'true' --locked 'true'",
+    " --description 'runner-agent-test' --executor 'docker' --docker-image 'docker:19.03.8-dind' --tag-list 'ec2-spot,durable-resources-aws' " ,
+    " --run-untagged=true --locked=true",
     "&& /usr/bin/gitlab-runner verify" 
   ])
 }
