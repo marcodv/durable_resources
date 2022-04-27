@@ -182,7 +182,7 @@ module "gitlabRunnersInfraAws" {
   aux_token                             = var.registration_token_infra
   registration_token                    = var.registration_token_infra
   registration_token_cluster_mgmt_chart = ""
-  registration_token_apps_charts = ""
+  registration_token_apps_charts        = ""
   gitlab_bucket_name                    = var.gitlab_bucket_name
   aws_region                            = var.aws_region
   ami_owners                            = var.ami_owners
@@ -202,7 +202,7 @@ module "gitlabRunnersClusterMgmgChart" {
   aux_token                             = var.registration_token_cluster_mgmt_chart
   registration_token                    = var.registration_token_cluster_mgmt_chart
   registration_token_infra              = ""
-  registration_token_apps_charts = ""
+  registration_token_apps_charts        = ""
   gitlab_bucket_name                    = var.gitlab_bucket_name
   aws_region                            = var.aws_region
   ami_owners                            = var.ami_owners
@@ -217,26 +217,27 @@ module "gitlabRunnersApplicationsChart" {
   depends_on = [module.networking]
   source     = "../../modules/gitlab/setupRunners"
 
-  environment                    = var.environment
-  registration_token_apps_charts = var.registration_token_apps_charts
-  aux_token                      = var.registration_token_apps_charts
-  registration_token             = var.registration_token_apps_charts
-  registration_token_infra       = ""
+  environment                           = var.environment
+  registration_token_apps_charts        = var.registration_token_apps_charts
+  aux_token                             = var.registration_token_apps_charts
+  registration_token                    = var.registration_token_apps_charts
+  registration_token_infra              = ""
   registration_token_cluster_mgmt_chart = ""
-  gitlab_bucket_name             = var.gitlab_bucket_name
-  aws_region                     = var.aws_region
-  ami_owners                     = var.ami_owners
-  metrics_autoscaling            = var.metrics_autoscaling
-  docker_machine_paramenters     = var.docker_machine_paramenters
-  runner_parameters              = var.runner_parameters
-  gitlab_project_list            = var.gitlab_project_list
-  gitlab_project                 = var.gitlab_project_list.cluster_mgmt_chart
+  gitlab_bucket_name                    = var.gitlab_bucket_name
+  aws_region                            = var.aws_region
+  ami_owners                            = var.ami_owners
+  metrics_autoscaling                   = var.metrics_autoscaling
+  docker_machine_paramenters            = var.docker_machine_paramenters
+  runner_parameters                     = var.runner_parameters
+  gitlab_project_list                   = var.gitlab_project_list
+  gitlab_project                        = var.gitlab_project_list.applications_chart
 }
 
 // Create Postgres for Prod 
 /*
 module "db" {
   source = "../../modules/db/rdsPostgres"
+  depends_on = [module.networking]
 
   environment        = var.environment
   availability_zones = var.availability_zones
