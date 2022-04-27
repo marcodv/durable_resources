@@ -103,6 +103,7 @@ module "createGitLabUser" {
 }
 
 // Create Networking schema 
+/*
 module "networking" {
   source = "../../modules/networking/vpc/"
 
@@ -161,7 +162,7 @@ module "gitlabRunnersClusterMgmgChart" {
   runner_parameters                     = var.runner_parameters
   gitlab_project_list                   = var.gitlab_project_list
   gitlab_project                        = var.gitlab_project_list.cluster_mgmt_chart
-}
+}*/
 
 
 // Create Postgres for Prod 

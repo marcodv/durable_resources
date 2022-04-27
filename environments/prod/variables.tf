@@ -150,9 +150,93 @@ variable "lambda_role_delete_bubble_backup" {
   type        = string
 }
 
+
+/* Networking Section*/
 variable "vpc_cidr_block" {
-  description = "VPC Cidr Block"
+  description = "VPC cidr block"
   type        = string
+}
+
+variable "public_subnets_cidr" {
+  description = "List of cidr blocks"
+  type        = list(string)
+}
+
+variable "private_subnets_cidr" {
+  description = "List of cidr blocks"
+  type        = list(string)
+}
+
+variable "availability_zones" {
+  description = "List of availability zones"
+  type        = list(string)
+}
+
+variable "bastions-ami" {
+  description = "Ami id used to create bastion"
+  type        = string
+}
+
+variable "bastion_ingress_rule" {
+  description = "List of open ports for inbound connections"
+  type        = list(number)
+}
+
+variable "public_subnet_alb" {
+  description = "List of public subnets for ALB"
+  default     = ""
+}
+
+variable "sg_alb" {
+  description = "Security group for ALB"
+  default     = ""
+}
+
+variable "vpc_id" {
+  description = "VPC id"
+  default     = ""
+}
+
+variable "alb_ingress_rule" {
+  description = "List of open ports for inbound connections"
+  type        = list(number)
+}
+
+variable "eks_ingress_rule" {
+  description = "List of open ports for inbound connections"
+  type        = list(number)
+}
+
+variable "private_instances_ingress_rule" {
+  description = "List of open ports for inbound connections"
+  type        = list(number)
+}
+
+variable "acl_public_subnet_rule" {
+  description = "List of rule_no and inbound ports open"
+  type = object({
+    ingress_rule = list(object({
+      rule_no   = number
+      from_port = number
+      to_port   = number
+    }))
+  })
+}
+
+variable "acl_private_subnet_rule" {
+  description = "List of rule_no and inbound ports open"
+  type = object({
+    ingress_rule = list(object({
+      rule_no   = number
+      from_port = number
+      to_port   = number
+    }))
+  })
+}
+
+variable "sg_db_rule" {
+  description = "List of open ports for inbound connections"
+  type        = list(string)
 }
 
 variable "acl_db_rule" {
@@ -172,13 +256,8 @@ variable "db_private_subnets_cidr" {
   default     = []
 }
 
-variable "sg_db_rule" {
-  description = "List of open ports for inbound connections"
-  type        = list(string)
-}
-
-variable "availability_zones" {
-  description = "List of availability zones"
+variable "sg_gitlab_runners_rules" {
+  description = "List of open ports for inbound connections for GitLab runners"
   type        = list(string)
 }
 
@@ -193,6 +272,7 @@ variable "db_sg" {
   type        = string
   default     = ""
 }
+/* End Networking Section*/
 
 variable "elasticache_setting" {
   description = "List for the Elastic Cache Redis based engine instance setting"
@@ -222,3 +302,81 @@ variable "tf_user_cluster_policies_mgmt" {
   description = "List of values for cluster policies"
   type        = list(string)
 }
+
+/* Gitlab runners parameters */
+variable "registration_token_infra" {
+  description = "Token for infra aws"
+  type        = string
+}
+
+variable "aux_token" {
+  description = "Aux token variable"
+  type = string
+  default = ""
+}
+
+variable "registration_token_cluster_mgmt_chart" {
+  description = "Token for cluster mgmt chart"
+  type        = string
+}
+
+variable "registration_token" {
+  description = "Token generic"
+  type        = string
+  default = ""
+}
+
+variable "registration_token_apps_charts" {
+  description = "Token for cluster applications chart"
+  type        = string
+}
+
+variable "aws_region" {
+  description = "AWS Region"
+  type        = string
+}
+
+variable "ami_owners" {
+  description = "Account ID from where search the pre-built AMI with all the packages"
+  type        = number
+}
+
+variable "metrics_autoscaling" {
+  description = "List of metrics used for autoscale the runnners"
+  type        = list(string)
+}
+
+variable "docker_machine_paramenters" {
+  description = "List of parameters for the docker machines"
+  type = object({
+    image_version  = string
+    instance_type  = string
+    spot_price_bid = string
+    url_download   = string
+  })
+}
+
+variable "runner_parameters" {
+  description = "List of parameters for the runners"
+  type = object({
+    description                = string
+    runner_instance_spot_price = string
+    instance_type              = string
+    gitlab_url                 = string
+  })
+}
+
+variable "gitlab_project_list" {
+  description = "List of GitLab project for which spin up the runners"
+  type = object({
+    durable            = string
+    infra              = string
+    cluster_mgmt_chart = string
+  })
+}
+
+variable "gitlab_project" {
+  description = "GitLab project"
+  type        = string
+}
+/* End Gitlab runners parameters */

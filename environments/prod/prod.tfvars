@@ -155,33 +155,133 @@ grafana_user = "grafanaUserprodEnv"
 lambda_role_delete_bubble_backup = "lambdaRoleDeleteBubbleBackup"
 
 // ==== THESE SETTING ARE FOR PROD VPC WHERE SETUP POSTGRES ====
-// vpc cidr block
-vpc_cidr_block = "10.0.0.0/16"
+bastions-ami                   = "ami-04dd4500af104442f"
+vpc_cidr_block                 = "10.0.0.0/16"
+public_subnets_cidr            = ["10.0.0.0/20", "10.0.16.0/20"]  //, "10.0.32.0/20"]
+private_subnets_cidr           = ["10.0.48.0/20", "10.0.64.0/20"] //, "10.0.80.0/20"]
+db_private_subnets_cidr        = ["10.0.96.0/20", "10.0.112.0/20"]
+availability_zones             = ["eu-west-1a", "eu-west-1b"] //, "eu-west-1c"]
+alb_ingress_rule               = [80, 443]
+eks_ingress_rule               = [22, 53, 80, 443]
+bastion_ingress_rule           = [22, 80, 443]
+private_instances_ingress_rule = [22, 53, 80, 443, 30080]
+sg_db_rule                     = [22, 5432, 6379]
+sg_gitlab_runners_rules        = [22, 2376]
+acl_public_subnet_rule = {
+  ingress_rule = [{
+    rule_no   = 100
+    from_port = 22
+    to_port   = 22
+    },
+    {
+      rule_no   = 101
+      from_port = 80
+      to_port   = 80
+    },
+    {
+      rule_no   = 102
+      from_port = 443
+      to_port   = 443
+    },
+    {
+      rule_no   = 103
+      from_port = 5432
+      to_port   = 5432
+    },
+    {
+      rule_no   = 104
+      from_port = 6379
+      to_port   = 6379
+    },
+    {
+      rule_no   = 105
+      from_port = 30080
+      to_port   = 30080
+    },
+    {
+      rule_no   = 200
+      from_port = 1025
+      to_port   = 65535
+  }]
+}
 
-// inbound accl rule
+acl_private_subnet_rule = {
+  ingress_rule = [{
+    rule_no   = 100
+    from_port = 22
+    to_port   = 22
+    },
+    {
+      rule_no   = 101
+      from_port = 80
+      to_port   = 80
+    },
+    {
+      rule_no   = 102
+      from_port = 443
+      to_port   = 443
+    },
+    {
+      rule_no   = 103
+      from_port = 5432
+      to_port   = 5432
+    },
+    {
+      rule_no   = 104
+      from_port = 6379
+      to_port   = 6379
+    },
+    {
+      rule_no   = 105
+      from_port = 5671
+      to_port   = 5671
+    },
+    {
+      rule_no   = 106
+      from_port = 30080
+      to_port   = 30080
+    },
+    {
+      rule_no   = 107
+      from_port = 53
+      to_port   = 53
+    },
+    {
+      rule_no   = 108
+      from_port = 443
+      to_port   = 443
+    },
+    {
+      rule_no   = 109
+      from_port = 2376
+      to_port   = 2376
+    },
+    {
+      rule_no   = 200
+      from_port = 1025
+      to_port   = 65535
+  }]
+}
+
 acl_db_rule = {
   ingress_rule = [{
     rule_no   = 100
     from_port = 5432
     to_port   = 5432
-  },
-  {
-    rule_no   = 101
-    from_port = 6379
-    to_port   = 6379
-  }
+    },
+    {
+      rule_no   = 101
+      from_port = 6379
+      to_port   = 6379
+    },
+    {
+      rule_no   = 102
+      from_port = 22
+      to_port   = 22
+    }
   ]
 }
-
-// db subnets cidr
-db_private_subnets_cidr  = ["10.0.96.0/20", "10.0.112.0/20"]
-
-// security group port
-sg_db_rule = [5432, 6379]
-
-// az for vpc
-availability_zones = ["eu-west-1a", "eu-west-1b"]
-// ==== END SETTING FOR VPC ====
+/* End Networking section*/
 
 // ===== Elasticache Settings ====
 elasticache_setting = {

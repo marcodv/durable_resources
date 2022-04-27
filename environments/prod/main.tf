@@ -150,17 +150,85 @@ module "createDeleteBubbleBackupLambda" {
   lambda_role_delete_bubble_backup = var.lambda_role_delete_bubble_backup
 }
 
-// Create VPC where to create PROD Postgres
-/*
-module "createVPC" {
-  source = "../../modules/networking/vpc"
+// Create Networking schema 
+module "networking" {
+  source = "../../modules/networking/vpc/"
 
-  vpc_cidr_block          = var.vpc_cidr_block
-  acl_db_rule             = var.acl_db_rule
-  db_private_subnets_cidr = var.db_private_subnets_cidr
-  sg_db_rule              = var.sg_db_rule
-  availability_zones      = var.availability_zones
-}*/
+  environment                    = var.environment
+  vpc_cidr_block                 = var.vpc_cidr_block
+  public_subnets_cidr            = var.public_subnets_cidr
+  private_subnets_cidr           = var.private_subnets_cidr
+  availability_zones             = var.availability_zones
+  alb_ingress_rule               = var.alb_ingress_rule
+  eks_ingress_rule               = var.eks_ingress_rule
+  bastion_ingress_rule           = var.bastion_ingress_rule
+  private_instances_ingress_rule = var.private_instances_ingress_rule
+  acl_public_subnet_rule         = var.acl_public_subnet_rule
+  acl_private_subnet_rule        = var.acl_private_subnet_rule
+  acl_db_rule                    = var.acl_db_rule
+  sg_db_rule                     = var.sg_db_rule
+  bastions-ami                   = var.bastions-ami
+  db_private_subnets_cidr        = var.db_private_subnets_cidr
+  sg_gitlab_runners_rules        = var.sg_gitlab_runners_rules
+}
+
+// Create GitLab Runners
+module "gitlabRunnersInfraAws" {
+  depends_on = [module.networking]
+  source     = "../../modules/gitlab/setupRunners"
+
+  environment                           = var.environment
+  registration_token_infra              = var.registration_token_infra
+  aux_token                             = var.registration_token_infra
+  registration_token                    = var.registration_token_infra
+  registration_token_cluster_mgmt_chart = ""
+  gitlab_bucket_name                    = var.gitlab_bucket_name
+  aws_region                            = var.aws_region
+  ami_owners                            = var.ami_owners
+  metrics_autoscaling                   = var.metrics_autoscaling
+  docker_machine_paramenters            = var.docker_machine_paramenters
+  runner_parameters                     = var.runner_parameters
+  gitlab_project_list                   = var.gitlab_project_list
+  gitlab_project                        = var.gitlab_project_list.infra
+}
+
+module "gitlabRunnersClusterMgmgChart" {
+  depends_on = [module.networking]
+  source     = "../../modules/gitlab/setupRunners"
+
+  environment                           = var.environment
+  registration_token_cluster_mgmt_chart = var.registration_token_cluster_mgmt_chart
+  aux_token                             = var.registration_token_cluster_mgmt_chart
+  registration_token                    = var.registration_token_cluster_mgmt_chart
+  registration_token_infra              = ""
+  gitlab_bucket_name                    = var.gitlab_bucket_name
+  aws_region                            = var.aws_region
+  ami_owners                            = var.ami_owners
+  metrics_autoscaling                   = var.metrics_autoscaling
+  docker_machine_paramenters            = var.docker_machine_paramenters
+  runner_parameters                     = var.runner_parameters
+  gitlab_project_list                   = var.gitlab_project_list
+  gitlab_project                        = var.gitlab_project_list.cluster_mgmt_chart
+}
+
+module "gitlabRunnersApplicationsChart" {
+  depends_on = [module.networking]
+  source     = "../../modules/gitlab/setupRunners"
+
+  environment                    = var.environment
+  registration_token_apps_charts = var.registration_token_apps_charts
+  aux_token                      = var.registration_token_apps_charts
+  registration_token             = var.registration_token_apps_charts
+  registration_token_infra       = ""
+  gitlab_bucket_name             = var.gitlab_bucket_name
+  aws_region                     = var.aws_region
+  ami_owners                     = var.ami_owners
+  metrics_autoscaling            = var.metrics_autoscaling
+  docker_machine_paramenters     = var.docker_machine_paramenters
+  runner_parameters              = var.runner_parameters
+  gitlab_project_list            = var.gitlab_project_list
+  gitlab_project                 = var.gitlab_project_list.cluster_mgmt_chart
+}
 
 // Create Postgres for Prod 
 /*
