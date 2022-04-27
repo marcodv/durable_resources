@@ -17,11 +17,21 @@ resource "aws_elasticache_parameter_group" "default" {
   family = var.elasticache_setting.family
 }
 
+// Read db subnets existing
+data "aws_subnets" "elaticache_subnets" {
+  filter {
+    name   = "tag:Name"
+    values = ["db-subnet-*-${var.environment}-environment"]
+  }
+}
+
 // Set the subnet for Redis
 resource "aws_elasticache_subnet_group" "redis_subnet" {
   name       = "redis-cache-subnet-${var.environment}-env"
-  subnet_ids = [var.elasticache_subnets]
+  subnet_ids = element(data.aws_subnets.elaticache_subnets.ids, 0)
 }
+
+
 
 // If auth token is enabled, then redis-cli cannot works
 // https://stackoverflow.com/questions/47696004/aws-elasticache-redis-cant-connect-from-laravel-nad-from-redis-cli
@@ -37,6 +47,14 @@ resource "aws_elasticache_subnet_group" "redis_subnet" {
   auth_token                    = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["password"]
 } */
 
+// Read redis sg existing
+data "aws_security_group" "redis_sg" {
+  filter {
+    name   = "tag:Name"
+    values = ["db-sg-${var.environment}-environment"]
+  }
+}
+
 // Create ElastiCache cluster based on Redis and on 1 node atm
 resource "aws_elasticache_cluster" "elasticache_cluster" {
   cluster_id           = "cluster-${var.environment}-env"
@@ -48,7 +66,7 @@ resource "aws_elasticache_cluster" "elasticache_cluster" {
   port                 = var.elasticache_setting.port
   // the next create the instance in the first subnet
   subnet_group_name    = aws_elasticache_subnet_group.redis_subnet.id
-  security_group_ids   = var.elasticache_sg_ids
+  security_group_ids   = data.aws_security_group.redis_sg.id
   //replication_group_id = aws_elasticache_replication_group.elasticache_gorup.id
 }
 

@@ -15,6 +15,7 @@ variable "elasticache_setting" {
   })
 }
 
+/*
 variable "elasticache_subnets" {
   description = "Subnets for Elasticache"
   type = string
@@ -24,3 +25,4 @@ variable "elasticache_sg_ids" {
   description = "Security groups ids for Elasticache"
   type = list(string)
 }
+*/

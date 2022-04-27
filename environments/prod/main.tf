@@ -151,6 +151,7 @@ module "createDeleteBubbleBackupLambda" {
 }
 
 // Create VPC where to create PROD Postgres
+/*
 module "createVPC" {
   source = "../../modules/networking/vpc"
 
@@ -159,24 +160,25 @@ module "createVPC" {
   db_private_subnets_cidr = var.db_private_subnets_cidr
   sg_db_rule              = var.sg_db_rule
   availability_zones      = var.availability_zones
-}
+}*/
 
 // Create Postgres for Prod 
+/*
 module "db" {
   source = "../../modules/db/rdsPostgres"
 
   environment        = var.environment
   availability_zones = var.availability_zones
-  db_subnet_ids      = module.createVPC.db_private_subnets_id
-  db_sg              = module.createVPC.db_sg
-}
+} */
 
+
+/*
 module "elastic_cache" {
   source     = "../../modules/redis/elasticache"
-  depends_on = [module.createVPC.vpc_id]
+  //depends_on = [module.createVPC.vpc_id]
 
   environment         = var.environment
   elasticache_setting = var.elasticache_setting
-  elasticache_subnets = element(module.createVPC.db_private_subnets_id, 0)
-  elasticache_sg_ids  = [module.createVPC.db_sg]
-}
+  //elasticache_subnets = element(module.createVPC.db_private_subnets_id, 0)
+  //elasticache_sg_ids  = [module.createVPC.db_sg]
+}*/
