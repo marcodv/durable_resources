@@ -241,16 +241,15 @@ module "db" {
 
   environment        = var.environment
   availability_zones = var.availability_zones
-} */
+}*/
 
 
-/*
 module "elastic_cache" {
   source     = "../../modules/redis/elasticache"
-  //depends_on = [module.createVPC.vpc_id]
+  depends_on = [module.networking]
 
   environment         = var.environment
   elasticache_setting = var.elasticache_setting
   //elasticache_subnets = element(module.createVPC.db_private_subnets_id, 0)
   //elasticache_sg_ids  = [module.createVPC.db_sg]
-}*/
+}

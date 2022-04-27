@@ -28,7 +28,7 @@ data "aws_subnets" "elaticache_subnets" {
 // Set the subnet for Redis
 resource "aws_elasticache_subnet_group" "redis_subnet" {
   name       = "redis-cache-subnet-${var.environment}-env"
-  subnet_ids = element(data.aws_subnets.elaticache_subnets.ids, 0)
+  subnet_ids = flatten([element(data.aws_subnets.elaticache_subnets.ids, 0)])
 }
 
 
@@ -65,8 +65,8 @@ resource "aws_elasticache_cluster" "elasticache_cluster" {
   engine_version       = var.elasticache_setting.engine_version
   port                 = var.elasticache_setting.port
   // the next create the instance in the first subnet
-  subnet_group_name    = aws_elasticache_subnet_group.redis_subnet.id
-  security_group_ids   = data.aws_security_group.redis_sg.id
+  subnet_group_name  = aws_elasticache_subnet_group.redis_subnet.id
+  security_group_ids = ["${data.aws_security_group.redis_sg.id}"]
   //replication_group_id = aws_elasticache_replication_group.elasticache_gorup.id
 }
 
@@ -86,4 +86,4 @@ resource "aws_elasticache_user" "redis_user" {
   access_string = "on ~app::* +@all"
   engine        = "REDIS"
   passwords     = [jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["password"]]
-} 
+}
