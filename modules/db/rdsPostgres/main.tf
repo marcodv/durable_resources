@@ -73,11 +73,12 @@ data "aws_secretsmanager_secret_version" "current" {
   secret_id = data.aws_secretsmanager_secret.prod_secrets.id
 }
 
+/*
 data "aws_db_snapshot" "latest_prod_snapshot" {
   db_instance_identifier = "db-prod-environment"
   snapshot_type          = "automated"
   most_recent            = true
-}
+}*/
 
 /* DB single or master slave*/
 #tfsec:ignore:aws-rds-encrypt-instance-storage-data 
@@ -91,7 +92,7 @@ resource "aws_db_instance" "db" {
   username                    = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["username"]
   password                    = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["password"]
   parameter_group_name        = aws_db_parameter_group.pg_db.name
-  skip_final_snapshot         = true
+  skip_final_snapshot         = false
   port                        = 5432
   availability_zone           = var.availability_zones[0]
   auto_minor_version_upgrade  = true
