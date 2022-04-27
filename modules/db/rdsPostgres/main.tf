@@ -42,10 +42,26 @@ resource "aws_db_parameter_group" "pg_db" {
 
 }
 
+// Read db subnets existing
+data "aws_subnets" "db_subnets" {
+  filter {
+    name   = "tag:Name"
+    values = ["db-subnet-*-${var.environment}-environment"]
+  }
+}
+
+// Read db sg existing
+data "aws_security_group" "db_sg" {
+  filter {
+    name   = "tag:Name"
+    values = ["db-sg-${var.environment}-environment"]
+  }
+}
+
 /* DB group name */
 resource "aws_db_subnet_group" "subnet_group_name" {
   name       = "${var.environment} environment db private subnets"
-  subnet_ids = var.db_subnet_ids
+  subnet_ids = data.aws_subnets.db_subnets.ids
 }
 
 // Read secret for prod secrets
@@ -55,6 +71,12 @@ data "aws_secretsmanager_secret" "prod_secrets" {
 
 data "aws_secretsmanager_secret_version" "current" {
   secret_id = data.aws_secretsmanager_secret.prod_secrets.id
+}
+
+data "aws_db_snapshot" "latest_prod_snapshot" {
+  db_instance_identifier = "db-prod-environment"
+  snapshot_type          = "automated"
+  most_recent            = true
 }
 
 /* DB single or master slave*/
@@ -77,15 +99,18 @@ resource "aws_db_instance" "db" {
   db_subnet_group_name        = aws_db_subnet_group.subnet_group_name.name
   backup_window               = "22:00-22:30"
   apply_immediately           = "true"
-  vpc_security_group_ids      = [var.db_sg]
+  vpc_security_group_ids      = [data.aws_security_group.db_sg.id]
   backup_retention_period     = 7
+  snapshot_identifier         = data.aws_db_snapshot.latest_prod_snapshot.id
 
   tags = {
     Name = "db-${var.environment}-environment"
   }
-}
 
-resource "aws_db_snapshot" "db_snapshot" {
-  db_instance_identifier = aws_db_instance.db.id
-  db_snapshot_identifier = "snapshotprod"
+  lifecycle {
+    ignore_changes = [
+      snapshot_identifier,
+    ]
+  }
+  
 }

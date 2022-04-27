@@ -62,7 +62,7 @@ resource "aws_route_table" "private_route_db" {
   count  = length(var.db_private_subnets_cidr)
 
   tags = {
-    Name = "route-table-PROD-POSTGRES-${element(var.availability_zones, count.index)}"
+    Name = "route-table-${var.environment}-POSTGRES-${element(var.availability_zones, count.index)}"
   }
 }
 
@@ -162,7 +162,7 @@ resource "aws_subnet" "db_subnets" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "db-subnet-${var.environment}-POSTGRES-${element(var.availability_zones, count.index)}"
+    Name = "db-subnet-${element(var.availability_zones, count.index)}-${var.environment}-environment"
   }
 }
 
@@ -198,7 +198,7 @@ resource "aws_security_group" "bastions_sg" {
   }
 
   tags = {
-    Name = "SG Bastions ${var.environment} environment"
+    Name = "bastions-sg-${var.environment}-environment"
   }
 }
 
@@ -245,7 +245,7 @@ resource "aws_security_group" "private_instances_sg" {
   }
 
   tags = {
-    Name = "SG private instances in ${var.environment} environment"
+    Name = "private-instance-sg-${var.environment}-environment"
   }
 }
 
@@ -307,7 +307,7 @@ resource "aws_security_group" "eks_sg" {
 
   }
   tags = {
-    Name                                               = "SG EKS nodes for ${var.environment} environment"
+    Name                                               = "eks-nodes-sg-${var.environment}-environment"
     "kubernetes.io/cluster/eks-${var.environment}-env" = "owned"
   }
 }
@@ -346,7 +346,7 @@ resource "aws_security_group" "db_sg" {
   }
 
   tags = {
-    Name = "SG DB for prod environment"
+    Name = "db-sg-${var.environment}-environment"
   }
 }
 

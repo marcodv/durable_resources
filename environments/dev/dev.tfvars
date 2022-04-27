@@ -97,7 +97,7 @@ alb_ingress_rule               = [80, 443]
 eks_ingress_rule               = [22, 53, 80, 443]
 bastion_ingress_rule           = [22, 80, 443]
 private_instances_ingress_rule = [22, 53, 80, 443, 30080]
-sg_db_rule                     = [5432, 6379]
+sg_db_rule                     = [22, 5432, 6379]
 sg_gitlab_runners_rules        = [22, 2376]
 acl_public_subnet_rule = {
   ingress_rule = [{
@@ -205,6 +205,11 @@ acl_db_rule = {
       rule_no   = 101
       from_port = 6379
       to_port   = 6379
+    },
+    {
+      rule_no   = 102
+      from_port = 22
+      to_port   = 22
     }
   ]
 }
@@ -215,4 +220,38 @@ gitlab_user = "gitlabUserdevEnv"
 
 gitlab_bucket_name = "gitlab-pipeline-execution-logs-dev-env"
 
-registration_token = "GR1348941icF4C3WCZjuDb2SH5cPW"
+registration_token_infra = "gitlabRunnerInfra"
+
+aux_token = ""
+
+registration_token_cluster_mgmt_chart = "gitlabRunnerClusterMgmtChart"
+
+/* Gitlab runners parameters */
+aws_region = "eu-west-1"
+
+ami_owners = "848481299679"
+
+metrics_autoscaling = ["GroupDesiredCapacity", "GroupInServiceCapacity"]
+
+docker_machine_paramenters = {
+  image_version  = "docker:19.03.8-dind"
+  instance_type  = "t3.medium"
+  spot_price_bid = "0.0137"
+  url_download   = "https://gitlab-docker-machine-downloads.s3.amazonaws.com/v0.16.2-gitlab.2/docker-machine"
+}
+
+runner_parameters = {
+  description                = "runner-agent"
+  runner_instance_spot_price = "0.0137"
+  instance_type              = "t3.medium"
+  gitlab_url                 = "https://gitlab.com/"
+}
+
+gitlab_project_list = {
+  durable            = "durable-resource-aws"
+  infra              = "infra-aws"
+  cluster_mgmt_chart = "cluster_mgmt_chart"
+}
+
+gitlab_project = ""
+/* End Gitlab runners parameters */

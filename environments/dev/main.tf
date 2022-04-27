@@ -85,9 +85,24 @@ module "createGrafanaUser" {
   read_only_billing_policy = var.read_only_billing_policy
 }
 
+// Create GitLab S3 bucket
+module "createBuckets" {
+  source = "../../modules/S3Buckets/gitlabRunnerLogsBuckets"
+
+  environment        = var.environment
+  gitlab_bucket_name = var.gitlab_bucket_name
+}
+
+// Create GitLab User 
+module "createGitLabUser" {
+  source = "../../modules/iam/createUsers/gitlabRunnerUsers"
+
+  environment        = var.environment
+  gitlab_user        = var.gitlab_user
+  gitlab_bucket_name = var.gitlab_bucket_name
+}
+
 // Create Networking schema 
-
-
 module "networking" {
   source = "../../modules/networking/vpc/"
 
@@ -109,33 +124,52 @@ module "networking" {
   sg_gitlab_runners_rules        = var.sg_gitlab_runners_rules
 }
 
-
-// Create GitLab S3 bucket
-module "createBuckets" {
-  source = "../../modules/S3Buckets/gitlabRunnerLogsBuckets"
-
-  environment        = var.environment
-  gitlab_bucket_name = var.gitlab_bucket_name
-}
-
-// Create GitLab User 
-module "createGitLabUser" {
-  source = "../../modules/iam/createUsers/gitlabRunnerUsers"
-
-  environment        = var.environment
-  gitlab_user        = var.gitlab_user
-  gitlab_bucket_name = var.gitlab_bucket_name
-}
-
 // Create GitLab Runners
-module "createGitlabRunners" {
-  depends_on = [
-    module.networking
-  ]
-  source = "../../modules/gitlab/setupRunners"
+module "gitlabRunnersInfraAws" {
+  depends_on = [module.networking]
+  source     = "../../modules/gitlab/setupRunners"
 
-  environment        = var.environment
-  registration_token = var.registration_token
-  gitlab_bucket_name = var.gitlab_bucket_name
+  environment                           = var.environment
+  registration_token_infra              = var.registration_token_infra
+  aux_token                             = var.registration_token_infra
+  registration_token                    = var.registration_token_infra
+  registration_token_cluster_mgmt_chart = ""
+  gitlab_bucket_name                    = var.gitlab_bucket_name
+  aws_region                            = var.aws_region
+  ami_owners                            = var.ami_owners
+  metrics_autoscaling                   = var.metrics_autoscaling
+  docker_machine_paramenters            = var.docker_machine_paramenters
+  runner_parameters                     = var.runner_parameters
+  gitlab_project_list                   = var.gitlab_project_list
+  gitlab_project                        = var.gitlab_project_list.infra
 }
 
+module "gitlabRunnersClusterMgmgChart" {
+  depends_on = [module.networking]
+  source     = "../../modules/gitlab/setupRunners"
+
+  environment                           = var.environment
+  registration_token_cluster_mgmt_chart = var.registration_token_cluster_mgmt_chart
+  aux_token                             = var.registration_token_cluster_mgmt_chart
+  registration_token                    = var.registration_token_cluster_mgmt_chart
+  registration_token_infra              = ""
+  gitlab_bucket_name                    = var.gitlab_bucket_name
+  aws_region                            = var.aws_region
+  ami_owners                            = var.ami_owners
+  metrics_autoscaling                   = var.metrics_autoscaling
+  docker_machine_paramenters            = var.docker_machine_paramenters
+  runner_parameters                     = var.runner_parameters
+  gitlab_project_list                   = var.gitlab_project_list
+  gitlab_project                        = var.gitlab_project_list.cluster_mgmt_chart
+}
+
+
+// Create Postgres for Prod 
+/*
+module "db" {
+  depends_on = [module.networking]
+  source = "../../modules/db/rdsPostgres"
+
+  environment        = var.environment
+  availability_zones = var.availability_zones
+} */

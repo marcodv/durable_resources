@@ -34,46 +34,49 @@ data "aws_security_group" "gitlab_runners_sg" {
   }
 }
 
+
+// Read secret for prod secrets
+data "aws_secretsmanager_secret" "runner_token" {
+  name = var.registration_token
+}
+
+data "aws_secretsmanager_secret_version" "current" {
+  secret_id = data.aws_secretsmanager_secret.runner_token.id
+}
+
+locals {
+  aux_token = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["gitlab_token"]
+}
+
 module "gitlab-runner" {
   source  = "npalm/gitlab-runner/aws"
   version = "4.41.1"
   ## Section about networking config
-  aws_region                            = "eu-west-1"
+  aws_region                            = var.aws_region
   vpc_id                                = data.aws_vpc.vpc.id
-  environment                           = "${var.environment}-gitlab-runners"
+  environment                           = "${var.environment}-${var.gitlab_project}-gitlab-runners"
   subnet_ids_gitlab_runner              = data.aws_subnet_ids.private_subnet.ids
   subnet_id_runners                     = element(tolist(data.aws_subnet_ids.private_subnet.ids), 0)
   extra_security_group_ids_runner_agent = [data.aws_security_group.gitlab_runners_sg.id]
-  // gitlab_runner_security_group_ids = [data.aws_security_group.gitlab_runners_sg.id]
-
 
   ## Section about instance runners config 
-  log_group_name             = "${var.environment}-gitlab-runners-logs"
-  metrics_autoscaling        = ["GroupDesiredCapacity", "GroupInServiceCapacity"]
-  runners_name               = "${var.environment}-gitlab-runners"
-  runners_gitlab_url         = "https://gitlab.com/"
-  runners_token              = var.registration_token
-  instance_type              = "t3.medium"
-  runner_instance_spot_price = "0.0137"
+  log_group_name      = "${var.environment}-${var.gitlab_project}-gitlab-runners-logs"
+  metrics_autoscaling = var.metrics_autoscaling
+  runners_name        = "${var.environment}-gitlab-runner-${var.gitlab_project}"
+  runners_gitlab_url  = var.runner_parameters.gitlab_url
+
+  runners_token              = local.aux_token
+  instance_type              = var.runner_parameters.instance_type
+  runner_instance_spot_price = var.runner_parameters.runner_instance_spot_price
   enable_runner_ssm_access   = true
 
-  docker_machine_download_url   = "https://gitlab-docker-machine-downloads.s3.amazonaws.com/v0.16.2-gitlab.2/docker-machine"
-  docker_machine_spot_price_bid = "0.0137"
-  docker_machine_instance_type  = "t3.medium"
+  docker_machine_download_url   = var.docker_machine_paramenters.url_download
+  docker_machine_spot_price_bid = var.docker_machine_paramenters.spot_price_bid
+  docker_machine_instance_type  = var.docker_machine_paramenters.instance_type
   agent_tags = {
-    "gitlab-project"                         = "durable-aws-resources"
+    "gitlab-project"                         = "${var.gitlab_project}"
     "tf-aws-gitlab-runner:instancelifecycle" = "spot:yes"
   }
-
-  /*
-  gitlab_runner_registration_config = {
-    registration_token = var.registration_token
-    tag_list           = "${var.environment}-docker-runners , docker_spot_runner" // this tag used in CICD
-    description        = "runner description"
-    locked_to_project  = true
-    run_untagged       = true
-    maximum_timeout    = "100"
-  } */
 
   tags = {
     "tf-aws-gitlab-runner:example"           = "runner-default"
@@ -94,13 +97,13 @@ module "gitlab-runner" {
   }]
 
   ## AMI selection for spin up runners
-  ami_owners = ["848481299679"]
+  ami_owners = [var.ami_owners]
   ami_filter = {
     "name" : ["ami-gitlab-runner-template"]
   }
 
   gitlab_runner_version = "14.10.0"
-  ## Section about scaling options 
+  ## Section about scaling options 
   # working 9 to 5
   enable_asg_recreation = true
   enable_schedule       = true
@@ -109,11 +112,9 @@ module "gitlab-runner" {
       periods      = ["\"* * 0-10,17-23 * * mon-fri *\"", "\"* * * * * sat,sun *\""]
       idle_count   = 0
       idle_time    = 60
-      runner_token = var.registration_token
-      gitlab_url   = "https://gitlab.com/"
+      runner_token = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["gitlab_token"]
+      gitlab_url   = var.runner_parameters.gitlab_url
       timezone     = "Europe/Amsterdam"
-      # You can create ssh_key_pair in AWS & provide the name here
-      //ssh_public_key = "ssh-key-bastion-${var.environment}-env"
     }
   ]
 
@@ -125,10 +126,12 @@ module "gitlab-runner" {
 
   // Register runners in a non interactive mode
   userdata_post_install = join("", [
-    "sudo gitlab-runner register --non-interactive --url 'https://gitlab.com/' --registration-token ${var.registration_token}",
-    " --description 'runner-agent-test' --executor 'docker' --docker-image 'docker:19.03.8-dind' --tag-list 'ec2-spot,durable-resources-aws' " ,
+    "sudo gitlab-runner register --non-interactive --url 'https://gitlab.com/' ",
+    " --registration-token ${local.aux_token}",
+    " --description ${var.runner_parameters.description}-${var.gitlab_project} --executor 'docker' ",
+    " --docker-image ${var.docker_machine_paramenters.image_version} --tag-list ${var.gitlab_project},${var.environment} ",
     " --run-untagged=true --locked=true",
-    "&& /usr/bin/gitlab-runner verify" 
+    " && /usr/bin/gitlab-runner verify"
   ])
 }
 
