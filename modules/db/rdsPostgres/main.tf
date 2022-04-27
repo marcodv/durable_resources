@@ -102,7 +102,7 @@ resource "aws_db_instance" "db" {
   apply_immediately           = "true"
   vpc_security_group_ids      = [data.aws_security_group.db_sg.id]
   backup_retention_period     = 7
-  snapshot_identifier         = data.aws_db_snapshot.latest_prod_snapshot.id
+  //snapshot_identifier         = data.aws_db_snapshot.latest_prod_snapshot.id
 
   tags = {
     Name = "db-${var.environment}-environment"
