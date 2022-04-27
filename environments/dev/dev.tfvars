@@ -226,6 +226,8 @@ aux_token = ""
 
 registration_token_cluster_mgmt_chart = "gitlabRunnerClusterMgmtChart"
 
+
+
 /* Gitlab runners parameters */
 aws_region = "eu-west-1"
 

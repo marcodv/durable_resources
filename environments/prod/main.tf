@@ -182,6 +182,7 @@ module "gitlabRunnersInfraAws" {
   aux_token                             = var.registration_token_infra
   registration_token                    = var.registration_token_infra
   registration_token_cluster_mgmt_chart = ""
+  registration_token_apps_charts = ""
   gitlab_bucket_name                    = var.gitlab_bucket_name
   aws_region                            = var.aws_region
   ami_owners                            = var.ami_owners
@@ -201,6 +202,7 @@ module "gitlabRunnersClusterMgmgChart" {
   aux_token                             = var.registration_token_cluster_mgmt_chart
   registration_token                    = var.registration_token_cluster_mgmt_chart
   registration_token_infra              = ""
+  registration_token_apps_charts = ""
   gitlab_bucket_name                    = var.gitlab_bucket_name
   aws_region                            = var.aws_region
   ami_owners                            = var.ami_owners
@@ -220,6 +222,7 @@ module "gitlabRunnersApplicationsChart" {
   aux_token                      = var.registration_token_apps_charts
   registration_token             = var.registration_token_apps_charts
   registration_token_infra       = ""
+  registration_token_cluster_mgmt_chart = ""
   gitlab_bucket_name             = var.gitlab_bucket_name
   aws_region                     = var.aws_region
   ami_owners                     = var.ami_owners

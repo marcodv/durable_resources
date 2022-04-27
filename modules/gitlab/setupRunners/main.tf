@@ -74,12 +74,10 @@ module "gitlab-runner" {
   docker_machine_spot_price_bid = var.docker_machine_paramenters.spot_price_bid
   docker_machine_instance_type  = var.docker_machine_paramenters.instance_type
   agent_tags = {
-    "gitlab-project"                         = "${var.gitlab_project}"
     "tf-aws-gitlab-runner:instancelifecycle" = "spot:yes"
   }
 
   tags = {
-    "tf-aws-gitlab-runner:example"           = "runner-default"
     "tf-aws-gitlab-runner:instancelifecycle" = "spot:yes"
   }
 

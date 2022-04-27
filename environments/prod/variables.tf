@@ -304,6 +304,11 @@ variable "tf_user_cluster_policies_mgmt" {
 }
 
 /* Gitlab runners parameters */
+variable "gitlab_bucket_name" {
+  description = "Gitlab bucket name where to store pipeline logs"
+  type        = string
+}
+
 variable "registration_token_infra" {
   description = "Token for infra aws"
   type        = string

@@ -23,6 +23,11 @@ variable "registration_token" {
   type        = string
 }
 
+variable "registration_token_apps_charts" {
+  description = "Token for cluster applications chart"
+  type        = string
+}
+
 variable "gitlab_bucket_name" {
   description = "Gitlab bucket name where to store pipeline logs"
   type        = string

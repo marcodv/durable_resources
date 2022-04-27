@@ -295,3 +295,45 @@ elasticache_setting = {
 
 // Cluster Policy list for terraform user
 tf_user_cluster_policies_mgmt = ["adminCluster", "describeCluster", "updateCluster", "viewNodeWorkload"]
+
+/* Gitlab runners parameters */
+gitlab_user = "gitlabUserdevEnv"
+
+gitlab_bucket_name = "gitlab-pipeline-execution-logs-dev-env"
+
+registration_token_infra = "gitlabRunnerInfra"
+
+aux_token = ""
+
+registration_token_cluster_mgmt_chart = "gitlabRunnerClusterMgmtChart"
+
+registration_token_apps_charts = "gitlabRunnerApplicationsChart"
+
+aws_region = "eu-west-1"
+
+ami_owners = "848481299679"
+
+metrics_autoscaling = ["GroupDesiredCapacity", "GroupInServiceCapacity"]
+
+docker_machine_paramenters = {
+  image_version  = "docker:19.03.8-dind"
+  instance_type  = "t3.medium"
+  spot_price_bid = "0.0137"
+  url_download   = "https://gitlab-docker-machine-downloads.s3.amazonaws.com/v0.16.2-gitlab.2/docker-machine"
+}
+
+runner_parameters = {
+  description                = "runner-agent"
+  runner_instance_spot_price = "0.0137"
+  instance_type              = "t3.medium"
+  gitlab_url                 = "https://gitlab.com/"
+}
+
+gitlab_project_list = {
+  durable            = "durable-resource-aws"
+  infra              = "infra-aws"
+  cluster_mgmt_chart = "cluster_mgmt_chart"
+}
+
+gitlab_project = ""
+/* End Gitlab runners parameters */
