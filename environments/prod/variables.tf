@@ -377,6 +377,7 @@ variable "gitlab_project_list" {
     durable            = string
     infra              = string
     cluster_mgmt_chart = string
+    applications_chart = string
   })
 }
 

@@ -333,6 +333,7 @@ gitlab_project_list = {
   durable            = "durable-resource-aws"
   infra              = "infra-aws"
   cluster_mgmt_chart = "cluster_mgmt_chart"
+  applications_chart = "applications_chart"
 }
 
 gitlab_project = ""

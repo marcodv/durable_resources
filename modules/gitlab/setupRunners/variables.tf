@@ -10,7 +10,7 @@ variable "registration_token_infra" {
 
 variable "aux_token" {
   description = "Aux token variable"
-  type = string
+  type        = string
 }
 
 variable "registration_token_cluster_mgmt_chart" {
@@ -75,6 +75,7 @@ variable "gitlab_project_list" {
     durable            = string
     infra              = string
     cluster_mgmt_chart = string
+    applications_chart = string
   })
 }
 
