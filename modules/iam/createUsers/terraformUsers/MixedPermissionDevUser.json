@@ -53,6 +53,21 @@
             ],
             "Effect": "Allow",
             "Resource": "*"
+        },
+        {
+            "Action": [
+                "route53:CreateHostedZone",
+                "route53:GetHostedZone",
+                "route53:ChangeResourceRecordSets",
+                "route53:ListResourceRecordSets",
+                "route53:GetChange"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:route53:::hostedzone/Z01304463KRQDVTLL27OH",
+                "arn:aws:route53:::change/*"
+            ],
+            "Sid": "AllowPublicHostedZonePermissions"
         }
     ]
 }

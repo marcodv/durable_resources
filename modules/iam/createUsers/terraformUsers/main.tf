@@ -57,11 +57,3 @@ resource "aws_iam_user_policy_attachment" "attach_managed_policies_to_user" {
   count      = length(var.aws_managed_policies_list)
   policy_arn = "arn:aws:iam::aws:policy/${element(var.aws_managed_policies_list, count.index)}"
 }
-
-// Add policy in order to add 
-// bastion dns entry for portforward to local lens
-resource "aws_iam_user_policy_attachment" "policy_to_modify_dns" {
-  depends_on = [aws_iam_user.iam_user]
-  user       = var.iam_user_name
-  policy_arn = "arn:aws:iam::848481299679:policy/cnameRecordsMgmtPolicy"
-}
