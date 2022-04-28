@@ -102,6 +102,13 @@ module "createGitLabUser" {
   gitlab_bucket_name = var.gitlab_bucket_name
 }
 
+// Create Lens User
+module "createLensUser" {
+  source = "../../modules/iam/createUsers/lensUsers"
+
+  environment        = var.environment
+}
+
 // Create Networking schema 
 /*
 module "networking" {
@@ -163,14 +170,3 @@ module "gitlabRunnersClusterMgmgChart" {
   gitlab_project_list                   = var.gitlab_project_list
   gitlab_project                        = var.gitlab_project_list.cluster_mgmt_chart
 }*/
-
-
-// Create Postgres for Prod 
-/*
-module "db" {
-  depends_on = [module.networking]
-  source = "../../modules/db/rdsPostgres"
-
-  environment        = var.environment
-  availability_zones = var.availability_zones
-} */
