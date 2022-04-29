@@ -87,17 +87,17 @@ grafana_role = "grafanaRoleddevEnv"
 tf_user_cluster_policies_mgmt = ["adminCluster", "describeCluster", "updateCluster", "viewNodeWorkload"]
 
 /* Networking section */
-bastions-ami                   = "ami-04dd4500af104442f"
+//bastions-ami                   = "ami-04dd4500af104442f"
 vpc_cidr_block                 = "30.0.0.0/16"
 public_subnets_cidr            = ["30.0.0.0/20", "30.0.16.0/20"]  //, "10.0.32.0/20"]
 private_subnets_cidr           = ["30.0.48.0/20", "30.0.64.0/20"] //, "10.0.80.0/20"]
 db_private_subnets_cidr        = ["30.0.96.0/20", "30.0.112.0/20"]
 availability_zones             = ["eu-west-1a", "eu-west-1b"] //, "eu-west-1c"]
 alb_ingress_rule               = [80, 443]
-eks_ingress_rule               = [22, 53, 80, 443]
-bastion_ingress_rule           = [22, 80, 443]
+eks_ingress_rule               = [53, 80, 443]
+bastion_ingress_rule           = [22]
 private_instances_ingress_rule = [22, 53, 80, 443, 30080]
-sg_db_rule                     = [22, 5432, 6379]
+sg_db_rule                     = [5432, 6379]
 sg_gitlab_runners_rules        = [22, 2376]
 acl_public_subnet_rule = {
   ingress_rule = [{
@@ -205,11 +205,6 @@ acl_db_rule = {
       rule_no   = 101
       from_port = 6379
       to_port   = 6379
-    },
-    {
-      rule_no   = 102
-      from_port = 22
-      to_port   = 22
     }
   ]
 }
