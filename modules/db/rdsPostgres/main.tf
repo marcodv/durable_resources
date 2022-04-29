@@ -73,12 +73,17 @@ data "aws_secretsmanager_secret_version" "current" {
   secret_id = data.aws_secretsmanager_secret.prod_secrets.id
 }
 
-/*
 data "aws_db_snapshot" "latest_prod_snapshot" {
-  db_instance_identifier = "db-prod-environment"
-  snapshot_type          = "automated"
+  db_snapshot_identifier = "db-prod-environment-manual-29-04"
+  snapshot_type          = "manual"
   most_recent            = true
-}*/
+}
+
+locals {
+  timestamp = "${timestamp()}"
+  timestamp_sanitized = "${replace("${local.timestamp}", "/[- TZ:]/", "")}"
+
+}
 
 /* DB single or master slave*/
 #tfsec:ignore:aws-rds-encrypt-instance-storage-data 
@@ -93,6 +98,7 @@ resource "aws_db_instance" "db" {
   password                    = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["password"]
   parameter_group_name        = aws_db_parameter_group.pg_db.name
   skip_final_snapshot         = false
+  final_snapshot_identifier   = "db-prod-final-snapshot-${local.timestamp_sanitized}"
   port                        = 5432
   availability_zone           = var.availability_zones[0]
   auto_minor_version_upgrade  = true
@@ -102,10 +108,10 @@ resource "aws_db_instance" "db" {
   apply_immediately           = "true"
   vpc_security_group_ids      = [data.aws_security_group.db_sg.id]
   backup_retention_period     = 7
-  //snapshot_identifier         = data.aws_db_snapshot.latest_prod_snapshot.id
+  snapshot_identifier         = data.aws_db_snapshot.latest_prod_snapshot.id
 
   tags = {
     Name = "db-${var.environment}-environment"
   }
-  
+
 }
