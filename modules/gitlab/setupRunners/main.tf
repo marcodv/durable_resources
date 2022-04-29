@@ -107,7 +107,8 @@ module "gitlab-runner" {
   enable_schedule       = true
   runners_machine_autoscaling = [
     {
-      periods      = ["\"* * 0-10,17-23 * * mon-fri *\"", "\"* * * * * sat,sun *\""]
+      #periods      = ["\"* * 0-8,19-23 * * mon-fri *\"", "\"* * * * * sat,sun *\""]
+      periods      = ["* * 7-17 * * mon-fri *"]
       idle_count   = 0
       idle_time    = 60
       runner_token = jsondecode(data.aws_secretsmanager_secret_version.current.secret_string)["gitlab_token"]
