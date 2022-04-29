@@ -167,7 +167,6 @@ module "networking" {
   acl_private_subnet_rule        = var.acl_private_subnet_rule
   acl_db_rule                    = var.acl_db_rule
   sg_db_rule                     = var.sg_db_rule
-  bastions-ami                   = var.bastions-ami
   db_private_subnets_cidr        = var.db_private_subnets_cidr
   sg_gitlab_runners_rules        = var.sg_gitlab_runners_rules
 }

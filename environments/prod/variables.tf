@@ -172,11 +172,6 @@ variable "availability_zones" {
   type        = list(string)
 }
 
-variable "bastions-ami" {
-  description = "Ami id used to create bastion"
-  type        = string
-}
-
 variable "bastion_ingress_rule" {
   description = "List of open ports for inbound connections"
   type        = list(number)
